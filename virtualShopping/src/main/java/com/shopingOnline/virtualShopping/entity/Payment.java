@@ -1,52 +1,23 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.enums.PaymentStatus;
+import com.shopingOnline.virtualShopping.enums.PaymentType;
+
 import java.util.Date;
 
 public class Payment {
     private Long id;
-    private Client client;
-    private String type;
-    private boolean status;
+    private Order order;
+    private PaymentType typePayment;
+    private PaymentStatus statusPayment;
     private double value;
 
-    public Payment(Long id, Client client, String type, boolean status, double value) {
+    public Payment(Long id, Order order, PaymentType typePayment, PaymentStatus statusPayment, double value) {
         this.id = id;
-        this.client = client;
-        this.type = type;
-        this.status = status;
+        this.order = order;
+        this.typePayment = typePayment;
+        this.statusPayment = statusPayment;
         this.value = value;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public Long getId() {
@@ -55,5 +26,37 @@ public class Payment {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public PaymentType getTypePayment() {
+        return typePayment;
+    }
+
+    public void setTypePayment(PaymentType typePayment) {
+        this.typePayment = typePayment;
+    }
+
+    public PaymentStatus getStatusPayment() {
+        return statusPayment;
+    }
+
+    public void setStatusPayment(PaymentStatus statusPayment) {
+        this.statusPayment = statusPayment;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 }

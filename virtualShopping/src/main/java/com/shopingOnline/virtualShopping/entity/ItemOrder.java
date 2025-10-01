@@ -1,16 +1,24 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import org.apache.catalina.User;
+
+import java.util.List;
+
 public class ItemOrder {
     private Long id;
-    private Product product;
+    private List<Product> product;
+    private User user;
     private int quantity;
-    private Double unicPrice;
+    private Double totalPrice;
+    private Double freight; //frete
 
-    public ItemOrder(Long id, Product product, int quantity, Double unicPrice) {
+    public ItemOrder(Long id, List<Product> product, User user, int quantity, Double totalPrice, Double freight) {
         this.id = id;
         this.product = product;
+        this.user = user;
         this.quantity = quantity;
-        this.unicPrice = unicPrice;
+        this.totalPrice = totalPrice;
+        this.freight = freight;
     }
 
     public Long getId() {
@@ -21,12 +29,20 @@ public class ItemOrder {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public List<Product> getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(List<Product> product) {
         this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getQuantity() {
@@ -37,11 +53,19 @@ public class ItemOrder {
         this.quantity = quantity;
     }
 
-    public Double getUnicPrice() {
-        return unicPrice;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setUnicPrice(Double unicPrice) {
-        this.unicPrice = unicPrice;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Double getFreight() {
+        return freight;
+    }
+
+    public void setFreight(Double freight) {
+        this.freight = freight;
     }
 }

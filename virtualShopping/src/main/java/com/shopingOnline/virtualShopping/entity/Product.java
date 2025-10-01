@@ -10,8 +10,9 @@ public class Product {
     private int stock;
     private List<String> colores;
     private List<String> size;
+    private Category category;
 
-    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size) {
+    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -19,6 +20,7 @@ public class Product {
         this.stock = stock;
         this.colores = colores;
         this.size = size;
+        this.category = category;
     }
 
     public Long getId() {
@@ -75,5 +77,13 @@ public class Product {
 
     public void setSize(List<String> size) {
         this.size = size;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
