@@ -11,15 +11,24 @@ public class ProductDto {
     private int stock;
     private List<String> colores;
     private List<String> size;
-    private Category category;
+    private CategoryDto category;
 
-    public ProductDto(Product data) {
-        this.id = data.getId();
-        this.name = data.getName();
-        this.stock = data.getStock();
-        this.colores = data.getColores();
-        this.size = data.getSize();
-        this.category = data.getCategory();
+    public ProductDto(Long id, String name, int stock, List<String> colores, List<String> size, CategoryDto category) {
+        this.id = id;
+        this.name = name;
+        this.stock = stock;
+        this.colores = colores;
+        this.size = size;
+        this.category = category;
+    }
+
+    public ProductDto(Product i, CategoryDto dtoCategory) {
+        this.id = i.getId();
+        this.name = i.getName();
+        this.stock = i.getStock();
+        this.colores = i.getColores();
+        this.size = i.getSize();
+        this.category = dtoCategory;
     }
 
     public Long getId() {
@@ -62,11 +71,11 @@ public class ProductDto {
         this.size = size;
     }
 
-    public Category getCategory() {
+    public CategoryDto getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryDto category) {
         this.category = category;
     }
 }

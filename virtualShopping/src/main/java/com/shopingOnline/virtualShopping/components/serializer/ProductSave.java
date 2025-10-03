@@ -13,8 +13,9 @@ public class ProductSave {
     private List<String> colores;
     private List<String> size;
     private Long category;
+    private List<String> urlsImage;
 
-    public ProductSave(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Long category) {
+    public ProductSave(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Long category, List<String> urlsImage) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -23,6 +24,7 @@ public class ProductSave {
         this.colores = colores;
         this.size = size;
         this.category = category;
+        this.urlsImage = urlsImage;
     }
 
     public ProductSave() {
@@ -90,5 +92,13 @@ public class ProductSave {
 
     public void setCategory(Long category) {
         this.category = category;
+    }
+
+    public List<String> getUrlsImage() {
+        return urlsImage;
+    }
+
+    public void setUrlsImage(List<String> urlsImage) {
+        this.urlsImage = urlsImage;
     }
 }

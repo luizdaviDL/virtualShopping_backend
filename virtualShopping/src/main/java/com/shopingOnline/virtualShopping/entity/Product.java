@@ -19,8 +19,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category")
     private Category category;
+    private List<String> urlsImage;
 
-    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category) {
+    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category, List<String> urlsImage) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -29,6 +30,7 @@ public class Product {
         this.colores = colores;
         this.size = size;
         this.category = category;
+        this.urlsImage = urlsImage;
     }
 
     public Product() {
