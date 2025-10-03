@@ -1,5 +1,7 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.enums.OrderStatus;
+
 import java.util.Date;
 import java.util.Timer;
 
@@ -11,9 +13,9 @@ public class Order {
     private ItemOrder items;
     private ClientAdress adressClient;
     private Payment paymentType;
-    private boolean status;
+    private OrderStatus status;
 
-    public Order(Long id, Date date, Timer hours, Client client, ItemOrder items, ClientAdress adressClient, Payment paymentType, boolean status) {
+    public Order(Long id, Date date, Timer hours, Client client, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
         this.id = id;
         this.date = date;
         this.hours = hours;
@@ -43,11 +45,11 @@ public class Order {
         this.date = date;
     }
 
-    public boolean isStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(OrderStatus status) {
         this.status = status;
     }
 

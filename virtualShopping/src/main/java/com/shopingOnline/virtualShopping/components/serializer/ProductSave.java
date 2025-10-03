@@ -1,14 +1,10 @@
-package com.shopingOnline.virtualShopping.entity;
+package com.shopingOnline.virtualShopping.components.serializer;
 
-import jakarta.persistence.*;
+import com.shopingOnline.virtualShopping.entity.Category;
 
 import java.util.List;
 
-@Table(name = "product")
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProductSave {
     private Long id;
     private String name;
     private String descripion;
@@ -16,11 +12,9 @@ public class Product {
     private int stock;
     private List<String> colores;
     private List<String> size;
-    @ManyToOne
-    @JoinColumn(name = "category")
-    private Category category;
+    private Long category;
 
-    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category) {
+    public ProductSave(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Long category) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -31,7 +25,7 @@ public class Product {
         this.category = category;
     }
 
-    public Product() {
+    public ProductSave() {
     }
 
     public Long getId() {
@@ -90,11 +84,11 @@ public class Product {
         this.size = size;
     }
 
-    public Category getCategory() {
+    public Long getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(Long category) {
         this.category = category;
     }
 }

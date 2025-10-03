@@ -1,37 +1,25 @@
-package com.shopingOnline.virtualShopping.entity;
+package com.shopingOnline.virtualShopping.components.dtos;
 
-import jakarta.persistence.*;
+import com.shopingOnline.virtualShopping.entity.Category;
+import com.shopingOnline.virtualShopping.entity.Product;
 
 import java.util.List;
 
-@Table(name = "product")
-@Entity
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ProductDto {
     private Long id;
     private String name;
-    private String descripion;
-    private double price;
     private int stock;
     private List<String> colores;
     private List<String> size;
-    @ManyToOne
-    @JoinColumn(name = "category")
     private Category category;
 
-    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category) {
-        this.id = id;
-        this.name = name;
-        this.descripion = descripion;
-        this.price = price;
-        this.stock = stock;
-        this.colores = colores;
-        this.size = size;
-        this.category = category;
-    }
-
-    public Product() {
+    public ProductDto(Product data) {
+        this.id = data.getId();
+        this.name = data.getName();
+        this.stock = data.getStock();
+        this.colores = data.getColores();
+        this.size = data.getSize();
+        this.category = data.getCategory();
     }
 
     public Long getId() {
@@ -48,22 +36,6 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescripion() {
-        return descripion;
-    }
-
-    public void setDescripion(String descripion) {
-        this.descripion = descripion;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public int getStock() {
