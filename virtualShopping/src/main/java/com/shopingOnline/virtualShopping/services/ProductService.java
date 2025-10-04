@@ -1,10 +1,12 @@
 package com.shopingOnline.virtualShopping.services;
 
+import com.shopingOnline.virtualShopping.components.dtos.CategoryDto;
 import com.shopingOnline.virtualShopping.components.validationsUtil.category.CategoryValidationUtil;
 import com.shopingOnline.virtualShopping.components.validationsUtil.products.ValidationUtil;
 import com.shopingOnline.virtualShopping.components.dtos.ProductDto;
 import com.shopingOnline.virtualShopping.components.product.Components;
 import com.shopingOnline.virtualShopping.components.serializer.ProductSave;
+import com.shopingOnline.virtualShopping.entity.Category;
 import com.shopingOnline.virtualShopping.entity.Product;
 import com.shopingOnline.virtualShopping.repository.CategoryRepository;
 import com.shopingOnline.virtualShopping.repository.ProductRepository;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -31,7 +34,9 @@ public class ProductService {
 
         Product productInstance = mappper.map(data, Product.class);
         Product saved = repository.save(productInstance);
-        return mappper.map(saved, ProductDto.class);
+        Optional<Category> getCategory = cateRepository.findById(data.getCategory());
+        CategoryDto category = mappper.map(getCategory, CategoryDto.class);
+        return new ProductDto(saved, category);
     }
 
     public ProductDto update(ProductSave data){
@@ -43,7 +48,7 @@ public class ProductService {
     }
 
     public List<ProductDto> delete(ProductSave data){
-        ValidationUtil.validateCategoryExist(repository, data.getId());
+        ValidationUtil.validateProductExist(repository, data.getId());
         Product productInstance = mappper.map(data, Product.class);
         repository.deleteById(productInstance.getId());
 

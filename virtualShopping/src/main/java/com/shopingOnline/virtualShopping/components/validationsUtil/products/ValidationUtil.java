@@ -24,10 +24,10 @@ public class ValidationUtil {
         }
     }
 
-    public static void validateCategoryExist(ProductRepository repository, Long id){
+    public static void validateProductExist(ProductRepository repository, Long id){
         Optional<Product> findCatedory = repository.findById(id);
         if (findCatedory.isEmpty()){
-            throw new BusinessException("Category does not exist in the database: " + id);
+            throw new BusinessException("Product does not exist in the database: " + id);
         }
     }
 

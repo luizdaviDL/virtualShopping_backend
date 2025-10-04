@@ -15,11 +15,8 @@ public class Order {
     private Date date;
     @Column(name = "hours")
     private LocalTime hours;
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
     @OneToOne
-    @JoinColumn(name = "item_order_id")
+    @JoinColumn(name = "item_order")
     private ItemOrder items;
     @ManyToOne
     @JoinColumn(name = "client_adress")
@@ -30,11 +27,10 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public Order(Long id, Date date, LocalTime hours, Client client, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
+    public Order(Long id, Date date, LocalTime hours, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
         this.id = id;
         this.date = date;
         this.hours = hours;
-        this.client = client;
         this.items = items;
         this.adressClient = adressClient;
         this.paymentType = paymentType;
@@ -74,14 +70,6 @@ public class Order {
 
     public void setHours(LocalTime hours) {
         this.hours = hours;
-    }
-
-    public Client getClient() {
-        return client;
-    }
-
-    public void setClient(Client client) {
-        this.client = client;
     }
 
     public ItemOrder getItems() {

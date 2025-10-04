@@ -22,6 +22,9 @@ public class ProductDto {
         this.category = category;
     }
 
+    public ProductDto() {
+    }
+
     public ProductDto(Product i, CategoryDto dtoCategory) {
         this.id = i.getId();
         this.name = i.getName();

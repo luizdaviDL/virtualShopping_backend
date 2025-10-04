@@ -4,10 +4,9 @@ import com.shopingOnline.virtualShopping.components.dtos.CategoryDto;
 import com.shopingOnline.virtualShopping.components.serializer.CategorySave;
 import com.shopingOnline.virtualShopping.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/category")
@@ -18,5 +17,15 @@ public class CategoryController {
     @PostMapping("/save")
     public CategoryDto save(@RequestBody CategorySave data){
         return service.save(data);
+    }
+
+    @DeleteMapping("/delete")
+    public List<CategoryDto> delete(@RequestBody CategorySave data){
+        return service.delete(data);
+    }
+
+    @GetMapping("/getAll")
+    public List<CategoryDto> getAll(){
+        return service.getAll();
     }
 }
