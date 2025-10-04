@@ -1,18 +1,31 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import jakarta.persistence.*;
 import org.apache.catalina.User;
 
 import java.util.List;
 
+@Entity
+@Table(name = "item_order")
 public class ItemOrder {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @ManyToMany
+    @JoinTable(
+            name = "item_order_product",
+            joinColumns = @JoinColumn(name = "item_order_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Product> product;
-    private User user;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client user;
     private int quantity;
     private Double totalPrice;
     private Double freight; //frete
 
-    public ItemOrder(Long id, List<Product> product, User user, int quantity, Double totalPrice, Double freight) {
+    public ItemOrder(Long id, List<Product> product, Client user, int quantity, Double totalPrice, Double freight) {
         this.id = id;
         this.product = product;
         this.user = user;
@@ -37,11 +50,11 @@ public class ItemOrder {
         this.product = product;
     }
 
-    public User getUser() {
+    public Client getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Client user) {
         this.user = user;
     }
 

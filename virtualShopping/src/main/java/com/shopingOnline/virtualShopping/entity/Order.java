@@ -1,21 +1,36 @@
 package com.shopingOnline.virtualShopping.entity;
 
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
+import jakarta.persistence.*;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.Timer;
-
+@Entity
+@Table(name = "order")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date date;
-    private Timer hours;
+    @Column(name = "hours")
+    private LocalTime hours;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
+    @OneToOne
+    @JoinColumn(name = "item_order_id")
     private ItemOrder items;
+    @ManyToOne
+    @JoinColumn(name = "client_adress")
     private ClientAdress adressClient;
+    @OneToOne
+    @JoinColumn(name = "payment")
     private Payment paymentType;
+    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public Order(Long id, Date date, Timer hours, Client client, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
+    public Order(Long id, Date date, LocalTime hours, Client client, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
         this.id = id;
         this.date = date;
         this.hours = hours;
@@ -53,11 +68,11 @@ public class Order {
         this.status = status;
     }
 
-    public Timer getHours() {
+    public LocalTime getHours() {
         return hours;
     }
 
-    public void setHours(Timer hours) {
+    public void setHours(LocalTime hours) {
         this.hours = hours;
     }
 

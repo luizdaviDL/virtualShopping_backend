@@ -1,5 +1,6 @@
-package com.shopingOnline.virtualShopping.components;
+package com.shopingOnline.virtualShopping.components.validationsUtil.products;
 
+import com.shopingOnline.virtualShopping.components.exceptions.BusinessException;
 import com.shopingOnline.virtualShopping.entity.Category;
 import com.shopingOnline.virtualShopping.entity.Product;
 import com.shopingOnline.virtualShopping.repository.CategoryRepository;
@@ -23,8 +24,8 @@ public class ValidationUtil {
         }
     }
 
-    public static void validateCategoryExist(CategoryRepository repository, Long id){
-        Optional<Category> findCatedory = repository.findById(id);
+    public static void validateCategoryExist(ProductRepository repository, Long id){
+        Optional<Product> findCatedory = repository.findById(id);
         if (findCatedory.isEmpty()){
             throw new BusinessException("Category does not exist in the database: " + id);
         }

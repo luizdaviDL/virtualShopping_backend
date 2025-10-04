@@ -1,6 +1,13 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "client_adress")
 public class ClientAdress {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String adress;
     private String cep;
     private String numberHome;
@@ -8,9 +15,12 @@ public class ClientAdress {
     private String neighborhood;
     private String city;
     private String state;
+    @OneToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
-    public ClientAdress(String adress, String cep, String numberHome, String complementAdress, String neighborhood, String city, String state, Client client) {
+    public ClientAdress(Long id, String adress, String cep, String numberHome, String complementAdress, String neighborhood, String city, String state, Client client) {
+        this.id = id;
         this.adress = adress;
         this.cep = cep;
         this.numberHome = numberHome;
@@ -19,6 +29,14 @@ public class ClientAdress {
         this.city = city;
         this.state = state;
         this.client = client;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getAdress() {

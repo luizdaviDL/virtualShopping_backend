@@ -2,13 +2,23 @@ package com.shopingOnline.virtualShopping.entity;
 
 import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 import com.shopingOnline.virtualShopping.enums.PaymentType;
+import jakarta.persistence.*;
 
 import java.util.Date;
-
+@Entity
+@Table(name = "payment")
 public class Payment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @OneToOne
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
+    @Enumerated(EnumType.STRING) // salva como texto (ex: "PENDING")
+    @Column(name = "type", nullable = false)
     private PaymentType typePayment;
+    @Enumerated(EnumType.STRING) // salva como texto (ex: "PENDING")
+    @Column(name = "status", nullable = false)
     private PaymentStatus statusPayment;
     private double value;
 

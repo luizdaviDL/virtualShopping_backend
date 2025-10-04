@@ -14,11 +14,20 @@ public class Product {
     private String descripion;
     private double price;
     private int stock;
+    @ElementCollection
+    @CollectionTable(name = "product_colors", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "color")
     private List<String> colores;
+    @ElementCollection
+    @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "size")
     private List<String> size;
     @ManyToOne
     @JoinColumn(name = "category")
     private Category category;
+    @ElementCollection
+    @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
+    @Column(name = "url")
     private List<String> urlsImage;
 
     public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category, List<String> urlsImage) {

@@ -1,4 +1,4 @@
-package com.shopingOnline.virtualShopping.components;
+package com.shopingOnline.virtualShopping.components.exceptions;
 
 public class BusinessException extends RuntimeException {
     public BusinessException(String message) {
