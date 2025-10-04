@@ -19,7 +19,7 @@ public class ProductController {
         return service.saveProduct(data);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ProductDto update(@RequestBody ProductSave data){
         return service.update(data);
     }

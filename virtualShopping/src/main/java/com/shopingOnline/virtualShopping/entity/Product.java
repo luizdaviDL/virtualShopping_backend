@@ -1,8 +1,10 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.components.serializer.ProductSave;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Table(name = "product")
 @Entity
@@ -44,6 +46,19 @@ public class Product {
 
     public Product() {
     }
+
+    public Product(ProductSave data, Category category) {
+        this.id = data.getId();
+        this.name = data.getName();
+        this.descripion = data.getDescripion();
+        this.price = data.getPrice();
+        this.stock = data.getStock();
+        this.colores = data.getColores();
+        this.size = data.getSize();
+        this.urlsImage = data.getUrlsImage();
+        this.category = category;
+    }
+
 
     public Long getId() {
         return id;
@@ -107,5 +122,13 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public List<String> getUrlsImage() {
+        return urlsImage;
+    }
+
+    public void setUrlsImage(List<String> urlsImage) {
+        this.urlsImage = urlsImage;
     }
 }

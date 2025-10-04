@@ -24,7 +24,7 @@ public class ValidationUtil {
         }
     }
 
-    public static void validateProductExist(ProductRepository repository, Long id){
+    public static void validateProductExistById(ProductRepository repository, Long id){
         Optional<Product> findCatedory = repository.findById(id);
         if (findCatedory.isEmpty()){
             throw new BusinessException("Product does not exist in the database: " + id);

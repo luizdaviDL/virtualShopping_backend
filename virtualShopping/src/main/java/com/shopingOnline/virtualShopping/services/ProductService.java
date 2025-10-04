@@ -31,8 +31,8 @@ public class ProductService {
     public ProductDto saveProduct(ProductSave data) {
         ValidationUtil.validateProductExist(repository, data.getName());
         CategoryValidationUtil.validateCategoryExistById(cateRepository, data.getCategory());
-
-        Product productInstance = mappper.map(data, Product.class);
+        Optional<Category> categoryValue = cateRepository.findById(data.getCategory());
+        Product productInstance = new Product(data, categoryValue.get());
         Product saved = repository.save(productInstance);
         Optional<Category> getCategory = cateRepository.findById(data.getCategory());
         CategoryDto category = mappper.map(getCategory, CategoryDto.class);
@@ -40,15 +40,27 @@ public class ProductService {
     }
 
     public ProductDto update(ProductSave data){
-        ValidationUtil.validateProductNotExist(repository, data.getName());
+        ValidationUtil.validateProductExistById(repository, data.getId());
         CategoryValidationUtil.validateCategoryExistById(cateRepository, data.getCategory());
-        Product productInstance = mappper.map(data, Product.class);
+        Category existingCategory = cateRepository.findById(data.getCategory()).get();
+        Product existingProduct = repository.findById(data.getId()).get();
+
+        existingProduct.setName(data.getName());
+        existingProduct.setDescripion(data.getDescripion());
+        existingProduct.setPrice(data.getPrice());
+        existingProduct.setStock(data.getStock());
+        existingProduct.setColores(data.getColores());
+        existingProduct.setSize(data.getSize());
+        existingProduct.setUrlsImage(data.getUrlsImage());
+        existingProduct.setCategory(existingCategory);
+
+        Product productInstance = new Product(data, existingCategory);
         Product save = repository.save(productInstance);
         return mappper.map(save, ProductDto.class);
     }
 
     public List<ProductDto> delete(ProductSave data){
-        ValidationUtil.validateProductExist(repository, data.getId());
+        ValidationUtil.validateProductExistById(repository, data.getId());
         Product productInstance = mappper.map(data, Product.class);
         repository.deleteById(productInstance.getId());
 
