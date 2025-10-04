@@ -1,25 +1,17 @@
-package com.shopingOnline.virtualShopping.entity;
+package com.shopingOnline.virtualShopping.components.dtos;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "client")
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientDto {
     private long id;
     private String name;
     private String email;
-    private String phone;
 
-    public Client(long id, String name, String email, String phone) {
+    public ClientDto(long id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phone = phone;
     }
 
-    public Client() {
+    public ClientDto() {
     }
 
     public long getId() {
@@ -44,13 +36,5 @@ public class Client {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 }

@@ -28,4 +28,10 @@ public class CategoryController {
     public List<CategoryDto> getAll(){
         return service.getAll();
     }
+
+    @PutMapping("/update")
+    public CategoryDto update(@RequestBody CategorySave data){
+        return service.update(data);
+    }
+
 }

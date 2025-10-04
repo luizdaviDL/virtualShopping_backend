@@ -1,25 +1,19 @@
-package com.shopingOnline.virtualShopping.entity;
+package com.shopingOnline.virtualShopping.components.serializer;
 
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "client")
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ClientSaving {
     private long id;
     private String name;
     private String email;
     private String phone;
 
-    public Client(long id, String name, String email, String phone) {
+    public ClientSaving(long id, String name, String email, String phone) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
     }
 
-    public Client() {
+    public ClientSaving() {
     }
 
     public long getId() {
