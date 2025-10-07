@@ -1,7 +1,9 @@
 package com.shopingOnline.virtualShopping.components.client;
 
+import com.shopingOnline.virtualShopping.components.dtos.ClientAdressDto;
 import com.shopingOnline.virtualShopping.components.dtos.ClientDto;
 import com.shopingOnline.virtualShopping.entity.Client;
+import com.shopingOnline.virtualShopping.entity.ClientAdress;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,5 +23,13 @@ public class ClientComponents {
         }
         return list;
 
+    }
+
+    public List<ClientAdressDto> lisAdressDto(List<ClientAdress> data) {
+        ArrayList<ClientAdressDto> list = new ArrayList<>();
+        for(ClientAdress i : data){
+            list.add(mapper.map(i, ClientAdressDto.class));
+        }
+        return list;
     }
 }

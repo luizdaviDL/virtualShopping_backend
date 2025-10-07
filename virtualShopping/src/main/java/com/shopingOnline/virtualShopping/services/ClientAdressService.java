@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.services;
 
+import com.shopingOnline.virtualShopping.components.client.ClientComponents;
 import com.shopingOnline.virtualShopping.components.dtos.ClientAdressDto;
 import com.shopingOnline.virtualShopping.components.dtos.ClientDto;
 import com.shopingOnline.virtualShopping.components.serializer.ClientAdressSave;
@@ -25,6 +26,8 @@ public class ClientAdressService {
     private ClientRepository clientRepository;
     @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private ClientComponents components;
 
     public ClientAdressDto save(ClientAdressSave data) {
         ClientValidationAdressUtil.validateAdressExist(repository, data.getCep(), data.getClient());
@@ -37,5 +40,10 @@ public class ClientAdressService {
         ClientDto clientDto = mapper.map(save.getClient(), ClientDto.class);
         ClientAdressDto dto = new ClientAdressDto(save, clientDto);
         return dto;
+    }
+
+    public List<ClientAdressDto> getAll() {
+        List<ClientAdress> getAll = repository.findAll();
+        return components.lisAdressDto(getAll);
     }
 }
