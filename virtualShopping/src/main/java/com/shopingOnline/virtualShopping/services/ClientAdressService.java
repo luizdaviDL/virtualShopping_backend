@@ -13,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +32,8 @@ public class ClientAdressService {
         Client getClient = clientRepository.findById(data.getClient()).get();
         ClientAdress instance = new ClientAdress(data, getClient);
         ClientAdress save = repository.save(instance);
-        getClient.setAdresses(save);
+
+        getClient.getAdresses().add(save);
         ClientDto clientDto = mapper.map(save.getClient(), ClientDto.class);
         ClientAdressDto dto = new ClientAdressDto(save, clientDto);
         return dto;
