@@ -65,4 +65,7 @@ public class Client {
     public void setAdresses(List<ClientAdress> adresses) {
         this.adresses = adresses;
     }
+    public void setAdresses(ClientAdress data){
+        this.adresses = adresses;
+    }
 }

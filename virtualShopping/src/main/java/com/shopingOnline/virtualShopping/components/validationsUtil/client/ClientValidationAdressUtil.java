@@ -9,10 +9,10 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class ClientValidationAdressUtil {
-    public static void validateAdressExist(ClientAdressRepository repository, String data){
-        String cepAdress = repository.findByCep(data);
-        if(Objects.equals(cepAdress, data)){
-            throw new BusinessException("this adress already exists to this user: " + data);
+    public static void validateAdressExist(ClientAdressRepository repository, String cep, Long client){
+        String cepAdress = repository.findByCep(cep,client);
+        if(Objects.equals(cepAdress, cep)){
+            throw new BusinessException("this adress already exists to this user: " + cep);
         }
     }
 }

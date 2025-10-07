@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.components.serializer.ClientAdressSave;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class ClientAdress {
     private String neighborhood;
     private String city;
     private String state;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
@@ -29,6 +30,20 @@ public class ClientAdress {
         this.city = city;
         this.state = state;
         this.client = client;
+    }
+
+    public ClientAdress() {
+    }
+
+    public ClientAdress(ClientAdressSave data, Client getClient) {
+        this.adress = data.getAdress();
+        this.cep = data.getCep();
+        this.numberHome = data.getNumberHome();
+        this.complementAdress = data.getComplementAdress();
+        this.neighborhood = data.getNeighborhood();
+        this.city = data.getCity();
+        this.state = data.getState();
+        this.client = getClient;
     }
 
     public Long getId() {
