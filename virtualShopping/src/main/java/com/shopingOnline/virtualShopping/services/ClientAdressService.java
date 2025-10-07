@@ -30,7 +30,7 @@ public class ClientAdressService {
     private ClientComponents components;
 
     public ClientAdressDto save(ClientAdressSave data) {
-        ClientValidationAdressUtil.validateAdressExist(repository, data.getCep(), data.getClient());
+        ClientValidationAdressUtil.validateAdressAlreadyExist(repository, data.getCep(), data.getClient());
         ClientValidationUtil.validateClientExistById(clientRepository,data.getClient());
         Client getClient = clientRepository.findById(data.getClient()).get();
         ClientAdress instance = new ClientAdress(data, getClient);
@@ -45,5 +45,27 @@ public class ClientAdressService {
     public List<ClientAdressDto> getAll() {
         List<ClientAdress> getAll = repository.findAll();
         return components.lisAdressDto(getAll);
+    }
+
+    public ClientAdressDto update(ClientAdressSave data) {
+        ClientValidationAdressUtil.validateAdressExist(repository, data.getId());
+        ClientAdress get = repository.findById(data.getId()).get();
+        get.setAdress(data.getAdress());
+        get.setCep(data.getCep());
+        get.setNumberHome(data.getNumberHome());
+        get.setComplementAdress(data.getComplementAdress());
+        get.setNeighborhood(data.getNeighborhood());
+        get.setCity(data.getCity());
+        get.setState(data.getState());
+
+        ClientAdress save = repository.save(get);
+        return mapper.map(save, ClientAdressDto.class);
+
+    }
+
+    public List<ClientAdressDto> delete(ClientAdressSave data) {
+        ClientValidationAdressUtil.validateAdressExist(repository, data.getId());
+        repository.deleteById(data.getId());
+        return getAll();
     }
 }

@@ -24,4 +24,13 @@ public class ClientAdressController {
     public List<ClientAdressDto> getAll(){
         return service.getAll();
     }
+    @PutMapping(value = "/update")
+    public ClientAdressDto update(@RequestBody ClientAdressSave data){
+        return service.update(data);
+    }
+
+    @DeleteMapping(value = "/delete")
+    public List<ClientAdressDto> delete(@RequestBody ClientAdressSave data){
+        return service.delete(data);
+    }
 }
