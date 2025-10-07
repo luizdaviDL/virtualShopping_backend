@@ -2,6 +2,8 @@ package com.shopingOnline.virtualShopping.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "client")
 public class Client {
@@ -11,6 +13,8 @@ public class Client {
     private String name;
     private String email;
     private String phone;
+    @OneToMany(mappedBy = "client")
+    private List<ClientAdress> adresses;
 
     public Client(long id, String name, String email, String phone) {
         this.id = id;
@@ -52,5 +56,13 @@ public class Client {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public List<ClientAdress> getAdresses() {
+        return adresses;
+    }
+
+    public void setAdresses(List<ClientAdress> adresses) {
+        this.adresses = adresses;
     }
 }
