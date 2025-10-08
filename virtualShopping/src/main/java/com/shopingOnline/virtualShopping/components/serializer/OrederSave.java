@@ -1,45 +1,31 @@
-package com.shopingOnline.virtualShopping.entity;
+package com.shopingOnline.virtualShopping.components.serializer;
 
+import com.shopingOnline.virtualShopping.entity.ClientAdress;
+import com.shopingOnline.virtualShopping.entity.ItemOrder;
+import com.shopingOnline.virtualShopping.entity.Payment;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Timer;
-@Entity
-@Table(name = "order")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+public class OrederSave {
     private Long id;
     private Date date;
-    @Column(name = "hours")
     private LocalTime hours;
-    @OneToOne
-    @JoinColumn(name = "item_order")
     private ItemOrder items;
-    @ManyToOne
-    @JoinColumn(name = "client_adress")
     private ClientAdress adressClient;
-    @OneToOne
-    @JoinColumn(name = "payment")
     private Payment paymentType;
-    @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    public Order(Long id, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
+    public OrederSave(Long id, Date date, LocalTime hours, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
         this.id = id;
-        this.date = java.sql.Date.valueOf(LocalDateTime.now().toLocalDate());;
-        this.hours = LocalTime.now();;
+        this.date = date;
+        this.hours = hours;
         this.items = items;
         this.adressClient = adressClient;
         this.paymentType = paymentType;
         this.status = status;
-    }
-
-
-    public Order() {
     }
 
     public Long getId() {
@@ -56,14 +42,6 @@ public class Order {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
     }
 
     public LocalTime getHours() {
@@ -96,5 +74,16 @@ public class Order {
 
     public void setPaymentType(Payment paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public OrederSave() {
     }
 }

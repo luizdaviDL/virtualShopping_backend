@@ -1,7 +1,6 @@
 package com.shopingOnline.virtualShopping.entity;
 
 import jakarta.persistence.*;
-import org.apache.catalina.User;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class ItemOrder {
         this.id = id;
     }
 
-    public List<Product> getProduct() {
+    public Long getProduct() {
         return product;
     }
 
