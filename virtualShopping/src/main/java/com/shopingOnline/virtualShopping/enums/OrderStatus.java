@@ -1,11 +1,12 @@
 package com.shopingOnline.virtualShopping.enums;
 
 public enum OrderStatus {
-    ORDER_CONFIRMED,     // Pedido Confirmado
+    DRAFT,
+    AWAITING_PAYMENT,    // Pedido confirmado, aguardando pagamento
     PAYMENT_APPROVED,    // Pagamento aprovado
     PROCESSING,          // Processando
-    PREPARING_ORDER,     // Preparando seu pedido obs(quando entrar nessa parte entra o eum Shiping)
-    SHIPPED,             // Enviado
-    AWAITING_SHIPMENT,   // Aguardando envio
-    DELIVERED
+    PREPARING_ORDER,
+    SHIPPED,
+    DELIVERED,
+    CANCELLED
 }

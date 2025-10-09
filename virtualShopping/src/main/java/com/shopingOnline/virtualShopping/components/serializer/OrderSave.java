@@ -12,18 +12,18 @@ public class OrderSave {
     private Client user;
     private List<Double> totalPrice;
     private Double freight; //frete
-    private PaymentStatus paymentStatus;
-    private Long paymentId;
+    private Long adress;
 
     public OrderSave() {
     }
 
-    public OrderSave(Long id, List<ItemOrder> products, Client user, List<Double> totalPrice, Double freight) {
+    public OrderSave(Long id, List<ItemOrder> items, Client user, List<Double> totalPrice, Double freight, Long adress) {
         this.id = id;
-        this.items = products;
+        this.items = items;
         this.user = user;
         this.totalPrice = totalPrice;
         this.freight = freight;
+        this.adress = adress;
     }
 
     public Long getId() {
@@ -66,19 +66,11 @@ public class OrderSave {
         this.freight = freight;
     }
 
-    public Long getPaymentId() {
-        return paymentId;
+    public Long getAdress() {
+        return adress;
     }
 
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public PaymentStatus getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(PaymentStatus paymentStatus) {
-        this.paymentStatus = paymentStatus;
+    public void setAdress(Long adress) {
+        this.adress = adress;
     }
 }

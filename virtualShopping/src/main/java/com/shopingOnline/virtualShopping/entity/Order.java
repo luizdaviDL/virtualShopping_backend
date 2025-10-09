@@ -30,22 +30,18 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment paymentType;
-
+    private OrderStatus statusPayment;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     private Double totalPrice;
 
     public Order() {}
 
-    public Order(Long id, Date date, LocalTime hours, List<ItemOrder> items,
-                 Client client, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
-        this.id = id;
-        this.date = date;
-        this.hours = hours;
+    public Order(List<ItemOrder> items,
+                 Client client, ClientAdress adressClient, OrderStatus status) {
         this.items = items;
         this.client = client;
         this.adressClient = adressClient;
-        this.paymentType = paymentType;
         this.status = status;
     }
 
@@ -113,5 +109,21 @@ public class Order {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public OrderStatus getStatusPayment() {
+        return statusPayment;
+    }
+
+    public void setStatusPayment(OrderStatus statusPayment) {
+        this.statusPayment = statusPayment;
+    }
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

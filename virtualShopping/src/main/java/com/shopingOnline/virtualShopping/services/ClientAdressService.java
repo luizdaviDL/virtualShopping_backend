@@ -30,7 +30,7 @@ public class ClientAdressService {
     private ClientComponents components;
 
     public ClientAdressDto save(ClientAdressSave data) {
-        ClientValidationAdressUtil.validateAdressAlreadyExist(repository, data.getCep(), data.getClient());
+        ClientValidationAdressUtil.validateAdressAlreadyExist(data.getCep(), data.getClient());
         ClientValidationUtil.validateClientExistById(clientRepository,data.getClient());
         Client getClient = clientRepository.findById(data.getClient()).get();
         ClientAdress instance = new ClientAdress(data, getClient);
@@ -48,7 +48,7 @@ public class ClientAdressService {
     }
 
     public ClientAdressDto update(ClientAdressSave data) {
-        ClientValidationAdressUtil.validateAdressExist(repository, data.getId());
+        ClientValidationAdressUtil.validateAdressExist( data.getId());
         ClientAdress get = repository.findById(data.getId()).get();
         get.setAdress(data.getAdress());
         get.setCep(data.getCep());
@@ -64,7 +64,7 @@ public class ClientAdressService {
     }
 
     public List<ClientAdressDto> delete(ClientAdressSave data) {
-        ClientValidationAdressUtil.validateAdressExist(repository, data.getId());
+        ClientValidationAdressUtil.validateAdressExist(data.getId());
         repository.deleteById(data.getId());
         return getAll();
     }
