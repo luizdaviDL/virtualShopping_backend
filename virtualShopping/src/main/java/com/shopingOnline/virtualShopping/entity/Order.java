@@ -2,13 +2,12 @@ package com.shopingOnline.virtualShopping.entity;
 
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
-import java.util.Timer;
+import java.util.List;
+
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,31 +15,41 @@ public class Order {
     private Date date;
     @Column(name = "hours")
     private LocalTime hours;
-    @OneToOne
-    @JoinColumn(name = "item_order")
-    private ItemOrder items;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemOrder> items;
+
     @ManyToOne
-    @JoinColumn(name = "client_adress")
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @ManyToOne
+    @JoinColumn(name = "client_address_id")
     private ClientAdress adressClient;
+
     @OneToOne
-    @JoinColumn(name = "payment")
+    @JoinColumn(name = "payment_id")
     private Payment paymentType;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+    private Double totalPrice;
 
-    public Order(Long id, ItemOrder items, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
+    public Order() {}
+
+    public Order(Long id, Date date, LocalTime hours, List<ItemOrder> items,
+                 Client client, ClientAdress adressClient, Payment paymentType, OrderStatus status) {
         this.id = id;
-        this.date = java.sql.Date.valueOf(LocalDateTime.now().toLocalDate());;
-        this.hours = LocalTime.now();;
+        this.date = date;
+        this.hours = hours;
         this.items = items;
+        this.client = client;
         this.adressClient = adressClient;
         this.paymentType = paymentType;
         this.status = status;
     }
 
-
-    public Order() {
-    }
+    // Getters e setters
 
     public Long getId() {
         return id;
@@ -58,14 +67,6 @@ public class Order {
         this.date = date;
     }
 
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
     public LocalTime getHours() {
         return hours;
     }
@@ -74,12 +75,20 @@ public class Order {
         this.hours = hours;
     }
 
-    public ItemOrder getItems() {
+    public List<ItemOrder> getItems() {
         return items;
     }
 
-    public void setItems(ItemOrder items) {
+    public void setItems(List<ItemOrder> items) {
         this.items = items;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public ClientAdress getAdressClient() {
@@ -96,5 +105,13 @@ public class Order {
 
     public void setPaymentType(Payment paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }

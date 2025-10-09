@@ -10,28 +10,30 @@ public class ItemOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToMany
-    @JoinTable(
-            name = "item_order_product",
-            joinColumns = @JoinColumn(name = "item_order_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> product;
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client user;
+    private Product product;
     private int quantity;
-    private Double totalPrice;
+    private Double unicPrice;
     private Double freight; //frete
 
-    public ItemOrder(Long id, List<Product> product, Client user, int quantity, Double totalPrice, Double freight) {
+
+    public ItemOrder(Long id, Product product, int quantity, Double unicPrice, Double freight) {
         this.id = id;
         this.product = product;
-        this.user = user;
         this.quantity = quantity;
-        this.totalPrice = totalPrice;
+        this.unicPrice = unicPrice;
         this.freight = freight;
+
     }
+
+    public Double getUnicPrice() {
+        return unicPrice;
+    }
+
+    public void setUnicPrice(Double unicPrice) {
+        this.unicPrice = unicPrice;
+    }
+
 
     public Long getId() {
         return id;
@@ -41,20 +43,12 @@ public class ItemOrder {
         this.id = id;
     }
 
-    public Long getProduct() {
+    public Product getProduct() {
         return product;
     }
 
-    public void setProduct(List<Product> product) {
+    public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public Client getUser() {
-        return user;
-    }
-
-    public void setUser(Client user) {
-        this.user = user;
     }
 
     public int getQuantity() {
@@ -63,14 +57,6 @@ public class ItemOrder {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     public Double getFreight() {
