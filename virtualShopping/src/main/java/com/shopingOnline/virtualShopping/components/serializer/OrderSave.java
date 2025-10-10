@@ -8,19 +8,19 @@ import java.util.List;
 
 public class OrderSave {
     private Long id;
-    private List<ItemOrder> items;
-    private Client user;
-    private List<Double> totalPrice;
+    private Long user;
+    private List<ItemOrderSave> items;
+    private Double totalPrice;
     private Double freight; //frete
     private Long adress;
 
     public OrderSave() {
     }
 
-    public OrderSave(Long id, List<ItemOrder> items, Client user, List<Double> totalPrice, Double freight, Long adress) {
+    public OrderSave(Long id, Long user, List<ItemOrderSave> items, Double totalPrice, Double freight, Long adress) {
         this.id = id;
-        this.items = items;
         this.user = user;
+        this.items = items;
         this.totalPrice = totalPrice;
         this.freight = freight;
         this.adress = adress;
@@ -34,27 +34,27 @@ public class OrderSave {
         this.id = id;
     }
 
-    public List<ItemOrder> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemOrder> items) {
-        this.items = items;
-    }
-
-    public Client getUser() {
+    public Long getUser() {
         return user;
     }
 
-    public void setUser(Client user) {
+    public void setUser(Long user) {
         this.user = user;
     }
 
-    public List<Double> getTotalPrice() {
+    public List<ItemOrderSave> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemOrderSave> items) {
+        this.items = items;
+    }
+
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(List<Double> totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 

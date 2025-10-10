@@ -1,6 +1,9 @@
 package com.shopingOnline.virtualShopping.services;
 
 import com.shopingOnline.virtualShopping.components.dtos.OrderItemDto;
+import com.shopingOnline.virtualShopping.components.dtos.ProductDto;
+import com.shopingOnline.virtualShopping.components.itemOrder.ItemOrderComponet;
+import com.shopingOnline.virtualShopping.components.product.Components;
 import com.shopingOnline.virtualShopping.components.serializer.OrderSave;
 import com.shopingOnline.virtualShopping.components.validationsUtil.client.ClientValidationAdressUtil;
 import com.shopingOnline.virtualShopping.components.validationsUtil.client.ClientValidationUtil;
@@ -35,20 +38,29 @@ public class OrderService {
     private PaymentRepository paymentRepository;
     @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private ItemOrderComponet component;
+    @Autowired
+    ClientValidationAdressUtil adressValidation;
+    @Autowired
+    private Components productComponent;
 
     public OrderItemDto save(OrderSave data) {
         validtion.ValidateProductsOrders(data);
-        ClientValidationUtil.validateClientExistById(clientRepository,data.getUser().getId());
-        ClientValidationAdressUtil.validateAdressExist(data.getAdress());
+        ClientValidationUtil.validateClientExistById(clientRepository,data.getUser());
+        adressValidation.validateAdressExist(data.getAdress());
 
         //separa os produtos e salvar e aguardar o pagamento para os trabalh.. separarem
         //pedido processando =  usa quando esta aguardando pagamento
-        Client client = clientRepository.findById(data.getUser().getId()).get();
+        Client client = clientRepository.findById(data.getUser()).get();
         ClientAdress adress = adressRepository.findById(data.getAdress()).get();
+        List<ItemOrder> itemOrdes = component.ItemOrderSave_to_ItemOrders(data.getItems());
 
-        Order orderInstance = new Order(data.getItems(), client, adress, OrderStatus.AWAITING_PAYMENT);
+        Order orderInstance = new Order(itemOrdes, client, adress, OrderStatus.DRAFT, OrderStatus.AWAITING_PAYMENT ,data.getTotalPrice());
         Order save =  repository.save(orderInstance);
-        return mapper.map(save, OrderItemDto.class);
+        List<ProductDto> dtosProduct = productComponent.listDtoProductItems(save.getItems());
+        OrderItemDto dd = new OrderItemDto(dtosProduct);
+        return mapper.map(dtosProduct, OrderItemDto.class);
     }
 
 

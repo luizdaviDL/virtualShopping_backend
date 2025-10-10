@@ -2,6 +2,7 @@ package com.shopingOnline.virtualShopping.components.product;
 
 import com.shopingOnline.virtualShopping.components.dtos.CategoryDto;
 import com.shopingOnline.virtualShopping.components.dtos.ProductDto;
+import com.shopingOnline.virtualShopping.entity.ItemOrder;
 import com.shopingOnline.virtualShopping.entity.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,4 +25,17 @@ public class Components {
         }
         return list;
     }
+
+    public List<ProductDto> listDtoProductItems(List<ItemOrder> data){
+        List<ProductDto> list = new ArrayList<>();
+
+        for(ItemOrder i:  data){
+            Product product = i.getProduct();
+            CategoryDto dtoCategory = mapper.map(product.getCategory(), CategoryDto.class);
+            ProductDto dto = new ProductDto(product, dtoCategory);
+            list.add(dto);
+        }
+        return list;
+    }
+
 }

@@ -4,9 +4,10 @@ import com.shopingOnline.virtualShopping.components.exceptions.BusinessException
 import com.shopingOnline.virtualShopping.entity.Payment;
 import com.shopingOnline.virtualShopping.repository.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class PaymentValidationUtil {
     @Autowired
     private PaymentRepository repository;

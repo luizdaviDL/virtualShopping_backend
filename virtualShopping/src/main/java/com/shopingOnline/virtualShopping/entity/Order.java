@@ -1,7 +1,10 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.components.serializer.ItemOrderSave;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +19,7 @@ public class Order {
     @Column(name = "hours")
     private LocalTime hours;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<ItemOrder> items;
 
     @ManyToOne
@@ -38,11 +41,15 @@ public class Order {
     public Order() {}
 
     public Order(List<ItemOrder> items,
-                 Client client, ClientAdress adressClient, OrderStatus status) {
+                 Client client, ClientAdress adressClient, OrderStatus status, OrderStatus statusPayment, Double totalPrice) {
+        this.date = java.sql.Date.valueOf(LocalDate.now());
+        this.hours = LocalTime.now();
         this.items = items;
         this.client = client;
         this.adressClient = adressClient;
         this.status = status;
+        this.statusPayment = statusPayment;
+        this.totalPrice = totalPrice;
     }
 
     // Getters e setters

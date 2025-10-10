@@ -5,9 +5,10 @@ import com.shopingOnline.virtualShopping.entity.Category;
 import com.shopingOnline.virtualShopping.entity.Product;
 import com.shopingOnline.virtualShopping.repository.CategoryRepository;
 import com.shopingOnline.virtualShopping.repository.ProductRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class ValidationUtil {
 
     public static void validateProductExist(ProductRepository repository, String productName){

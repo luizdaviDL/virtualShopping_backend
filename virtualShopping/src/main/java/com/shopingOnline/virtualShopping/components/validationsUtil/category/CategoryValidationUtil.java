@@ -3,9 +3,10 @@ package com.shopingOnline.virtualShopping.components.validationsUtil.category;
 import com.shopingOnline.virtualShopping.components.exceptions.BusinessException;
 import com.shopingOnline.virtualShopping.entity.Category;
 import com.shopingOnline.virtualShopping.repository.CategoryRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class CategoryValidationUtil {
     public static void validateCategoryExist(CategoryRepository repository, String name){
         Optional<Category> findName = repository.findByName(name);

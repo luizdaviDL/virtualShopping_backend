@@ -5,9 +5,10 @@ import com.shopingOnline.virtualShopping.components.serializer.ClientSaving;
 import com.shopingOnline.virtualShopping.entity.Client;
 import com.shopingOnline.virtualShopping.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
-
+@Component
 public class ClientValidationUtil {
 
     public static void validateClientExist(ClientRepository repository, String name){

@@ -1,43 +1,30 @@
-package com.shopingOnline.virtualShopping.components.dtos;
+package com.shopingOnline.virtualShopping.components.serializer;
 
 import com.shopingOnline.virtualShopping.entity.Product;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
-public class OrderItemDto {
-    private Long id;
-    private ProductDto product;
+public class ItemOrderSave {
+    private Long productId;
     private int quantity;
     private Double unicPrice;
     private Double discount;
 
-    public OrderItemDto(Long id, ProductDto product, int quantity, Double unicPrice, Double discount) {
-        this.id = id;
-        this.product = product;
+    public ItemOrderSave(Long productId, int quantity, Double unicPrice, Double discount) {
+        this.productId = productId;
         this.quantity = quantity;
         this.unicPrice = unicPrice;
         this.discount = discount;
     }
 
-    public OrderItemDto() {
+    public ItemOrderSave() {
     }
 
-    public Long getId() {
-        return id;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public ProductDto getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductDto product) {
-        this.product = product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public int getQuantity() {

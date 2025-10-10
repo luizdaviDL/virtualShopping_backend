@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.components.serializer.ItemOrderSave;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,16 +15,23 @@ public class ItemOrder {
     private Product product;
     private int quantity;
     private Double unicPrice;
-    private Double freight; //frete
+    private Double discount; //frete
 
 
-    public ItemOrder(Long id, Product product, int quantity, Double unicPrice, Double freight) {
+    public ItemOrder(Long id, Product product, int quantity, Double unicPrice, Double discount) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.unicPrice = unicPrice;
-        this.freight = freight;
+        this.discount = discount;
 
+    }
+
+    public ItemOrder(ItemOrderSave i
+                     ) {
+        this.quantity = i.getQuantity();
+        this.unicPrice = i.getUnicPrice();
+        this.discount = i.getDiscount();
     }
 
     public Double getUnicPrice() {
@@ -59,11 +67,11 @@ public class ItemOrder {
         this.quantity = quantity;
     }
 
-    public Double getFreight() {
-        return freight;
+    public Double getDiscount() {
+        return discount;
     }
 
-    public void setFreight(Double freight) {
-        this.freight = freight;
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 }
