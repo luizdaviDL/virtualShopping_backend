@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.controlers;
 
+import com.shopingOnline.virtualShopping.components.dtos.OrderDto;
 import com.shopingOnline.virtualShopping.components.dtos.OrderItemDto;
 import com.shopingOnline.virtualShopping.components.serializer.OrderSave;
 import com.shopingOnline.virtualShopping.services.OrderService;
@@ -16,7 +17,7 @@ public class OrderItemController {
     private OrderService service;
 
     @PostMapping(value="/save")
-    public OrderItemDto save(@RequestBody OrderSave data){
+    public OrderDto save(@RequestBody OrderSave data){
         return service.save(data);
     }
 }

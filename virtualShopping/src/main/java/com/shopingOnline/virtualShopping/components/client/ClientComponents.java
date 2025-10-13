@@ -25,6 +25,10 @@ public class ClientComponents {
 
     }
 
+    public ClientDto clientDto(Client data) {
+        return mapper.map(data, ClientDto.class);
+    }
+
     public List<ClientAdressDto> lisAdressDto(List<ClientAdress> data) {
         ArrayList<ClientAdressDto> list = new ArrayList<>();
         for(ClientAdress i : data){
@@ -32,4 +36,9 @@ public class ClientComponents {
         }
         return list;
     }
+
+    public ClientAdressDto adressDto(ClientAdress data) {
+        return  mapper.map(data, ClientAdressDto.class);
+    }
+
 }

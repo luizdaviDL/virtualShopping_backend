@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.components.dtos;
 
+import com.shopingOnline.virtualShopping.entity.Order;
 import com.shopingOnline.virtualShopping.entity.Product;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,8 @@ public class OrderItemDto {
 
     public OrderItemDto() {
     }
+
+
 
     public Long getId() {
         return id;
