@@ -29,6 +29,17 @@ public class OrderItemValidationUtil {
             if(!i.getUnicPrice().equals(product.get().getPrice())){
                 throw new BusinessException("the price is not update to product id: "+ i.getProductId());
             }
+
+            boolean sizeAvailable = product.get().getSize().contains(i.getSize());
+            boolean colorAvailable = product.get().getColores().contains(i.getColor());
+
+            if (!sizeAvailable) {
+                throw new BusinessException("Size '" + i.getSize() + "' is not available for product id: " + i.getProductId());
+            }
+
+            if (!colorAvailable) {
+                throw new BusinessException("Color '" + i.getColor() + "' is not available for product id: " + i.getProductId());
+            }
         }
     }
 }
