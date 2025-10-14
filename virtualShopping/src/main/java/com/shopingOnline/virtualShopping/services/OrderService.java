@@ -50,6 +50,9 @@ public class OrderService {
     private Components productComponent;
 
     public OrderDto save(OrderSave data) {
+        //verifuicar se ja exuiste os itens pedidos para o mesmo cliente, o mesmo não pode sazer o mesmo pedido duplicado
+       // Order order = repository.findByClient(data.getUser());
+
         validtion.ValidateProductsOrders(data);
         ClientValidationUtil.validateClientExistById(clientRepository,data.getUser());
         adressValidation.validateAdressExist(data.getAdress());

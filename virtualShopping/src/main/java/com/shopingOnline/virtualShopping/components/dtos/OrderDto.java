@@ -18,12 +18,11 @@ public class OrderDto {
     private ClientAdressDto adressClient;
     private OrderStatus status;
 
-    public OrderDto(Long id, Date date, LocalTime hours, ClientDto client, List<OrderItemDto> items, ClientAdressDto adressClient, OrderStatus status) {
+    public OrderDto(Long id, Date date, LocalTime hours, ClientDto client, ClientAdressDto adressClient, OrderStatus status) {
         this.id = id;
         this.date = date;
         this.hours = hours;
         this.client = client;
-        this.items = items;
         this.adressClient = adressClient;
         this.status = status;
     }

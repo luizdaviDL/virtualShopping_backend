@@ -13,17 +13,21 @@ public class OrderSave {
     private Double totalPrice;
     private Double freight; //frete
     private Long adress;
+    private int quantity;
+    private String color;
 
     public OrderSave() {
     }
 
-    public OrderSave(Long id, Long user, List<ItemOrderSave> items, Double totalPrice, Double freight, Long adress) {
+    public OrderSave(Long id, Long user, List<ItemOrderSave> items, Double totalPrice, Double freight, Long adress, int quantity, String color) {
         this.id = id;
         this.user = user;
         this.items = items;
         this.totalPrice = totalPrice;
         this.freight = freight;
         this.adress = adress;
+        this.quantity = quantity;
+        this.color = color;
     }
 
     public Long getId() {
@@ -44,6 +48,22 @@ public class OrderSave {
 
     public List<ItemOrderSave> getItems() {
         return items;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public void setItems(List<ItemOrderSave> items) {

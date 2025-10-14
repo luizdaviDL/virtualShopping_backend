@@ -16,15 +16,18 @@ public class ItemOrder {
     private int quantity;
     private Double unicPrice;
     private Double discount; //frete
+    private String size;
+    private String color;
 
 
-    public ItemOrder(Long id, Product product, int quantity, Double unicPrice, Double discount) {
+    public ItemOrder(Long id, Product product, int quantity, Double unicPrice, Double discount, String size, String color) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
         this.unicPrice = unicPrice;
         this.discount = discount;
-
+        this.size = size;
+        this.color = color;
     }
 
     public ItemOrder(ItemOrderSave i
@@ -32,6 +35,8 @@ public class ItemOrder {
         this.quantity = i.getQuantity();
         this.unicPrice = i.getUnicPrice();
         this.discount = i.getDiscount();
+        this.size = i.getSize();
+        this.color = i.getColor();
     }
 
     public Double getUnicPrice() {
@@ -73,5 +78,21 @@ public class ItemOrder {
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
