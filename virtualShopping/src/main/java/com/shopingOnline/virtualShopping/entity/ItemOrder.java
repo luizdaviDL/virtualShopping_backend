@@ -13,6 +13,9 @@ public class ItemOrder {
     private Long id;
     @ManyToOne
     private Product product;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
     private int quantity;
     private Double unicPrice;
     private Double discount; //frete
@@ -86,6 +89,14 @@ public class ItemOrder {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public String getColor() {

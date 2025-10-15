@@ -1,8 +1,6 @@
 package com.shopingOnline.virtualShopping.services;
 
-import com.shopingOnline.virtualShopping.components.dtos.OrderDto;
-import com.shopingOnline.virtualShopping.components.dtos.OrderItemDto;
-import com.shopingOnline.virtualShopping.components.dtos.ProductDto;
+import com.shopingOnline.virtualShopping.components.dtos.*;
 import com.shopingOnline.virtualShopping.components.itemOrder.ItemOrderComponet;
 import com.shopingOnline.virtualShopping.components.order.OrderComponent;
 import com.shopingOnline.virtualShopping.components.product.Components;
@@ -19,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,13 +58,24 @@ public class OrderService {
 
         Client client = clientRepository.findById(data.getUser()).get();
         ClientAdress adress = adressRepository.findById(data.getAdress()).get();
-        List<ItemOrder> itemOrdes = itemOrdercomponent.ItemOrderSave_to_ItemOrders(data.getItems());
-
-        Order orderInstance = new Order(itemOrdes, client, adress, OrderStatus.DRAFT, OrderStatus.AWAITING_PAYMENT ,data.getTotalPrice());
+        Order orderInstance = new Order(client, adress, OrderStatus.DRAFT, OrderStatus.AWAITING_PAYMENT ,data.getTotalPrice());
+        Order savedOrder = repository.save(orderInstance);
+        List<ItemOrder> itemOrdes = itemOrdercomponent.ItemOrderSave_to_ItemOrders(data.getItems(), savedOrder);
+        orderInstance.setItems(itemOrdes);
         Order save =  repository.save(orderInstance);
         return  orderComponent.orderDto(save);
     }
 
+    public List<OrderDto> getAll(){
+        List<Order> orders = repository.findAll();
+        List<OrderDto> dtos= new ArrayList<>();
+        for(Order i: orders){
+            ClientDto client = mapper.map(i.getClient(), ClientDto.class);
+            ClientAdressDto adress = mapper.map(i.getClient(), ClientAdressDto.class);
+
+        }
+        return null;
+    }
 
 
 }

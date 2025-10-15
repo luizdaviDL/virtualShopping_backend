@@ -19,7 +19,7 @@ public class Order {
     @Column(name = "hours")
     private LocalTime hours;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrder> items;
 
     @ManyToOne
@@ -40,11 +40,10 @@ public class Order {
 
     public Order() {}
 
-    public Order(List<ItemOrder> items,
+    public Order(
                  Client client, ClientAdress adressClient, OrderStatus status, OrderStatus statusPayment, Double totalPrice) {
         this.date = java.sql.Date.valueOf(LocalDate.now());
         this.hours = LocalTime.now();
-        this.items = items;
         this.client = client;
         this.adressClient = adressClient;
         this.status = status;

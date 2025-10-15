@@ -31,12 +31,13 @@ public class ItemOrderComponet {
     @Autowired
     private ClientComponents clientComponents;
 
-    public List<ItemOrder> ItemOrderSave_to_ItemOrders(List<ItemOrderSave> data){
+    public List<ItemOrder> ItemOrderSave_to_ItemOrders(List<ItemOrderSave> data, Order order){
         List<ItemOrder> list = new ArrayList<>();
         for(ItemOrderSave i: data){
             Product product = productRepository.findById(i.getProductId()).get();
             ItemOrder instance = new ItemOrder(i);
             instance.setProduct(product);
+            instance.setOrder(order);
             ItemOrder item = repository.save(instance);
             list.add(item);
         }
