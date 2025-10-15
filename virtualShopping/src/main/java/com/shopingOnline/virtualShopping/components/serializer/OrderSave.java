@@ -1,6 +1,7 @@
 package com.shopingOnline.virtualShopping.components.serializer;
 
 import com.shopingOnline.virtualShopping.entity.*;
+import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 
 import java.math.BigDecimal;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public class OrderSave {
     private Long id;
+    private OrderStatus status;
     private Long user;
     private List<ItemOrderSave> items;
     private BigDecimal totalPrice;
@@ -93,5 +95,13 @@ public class OrderSave {
 
     public void setAdress(Long adress) {
         this.adress = adress;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 }

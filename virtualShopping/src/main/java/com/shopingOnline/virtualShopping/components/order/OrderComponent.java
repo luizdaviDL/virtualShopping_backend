@@ -43,6 +43,24 @@ public class OrderComponent {
         return dto;
     }
 
+    public List<OrderDto> orderDto_list(List<Order> orders) {
+        List<OrderDto> orderDtos = new ArrayList<>();
+
+        for (Order order : orders) {
+            List<OrderItemDto> items = new ArrayList<>();
+            for (ItemOrder i : order.getItems()) {
+                Product product = i.getProduct();
+                CategoryDto category = mapper.map(product.getCategory(), CategoryDto.class);
+                items.add(new OrderItemDto(product, i, category));
+            }
+            OrderDto dto = mapper.map(order, OrderDto.class);
+            dto.setItems(items);
+            orderDtos.add(dto);
+        }
+        return orderDtos;
+    }
+
+
     public OrderDto list_OrderItemDto(Order data){
         ArrayList<OrderItemDto> itemDto = new ArrayList<>();
         ClientDto client = null;

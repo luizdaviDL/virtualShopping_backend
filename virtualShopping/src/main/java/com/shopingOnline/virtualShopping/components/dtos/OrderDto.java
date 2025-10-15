@@ -4,6 +4,7 @@ import com.shopingOnline.virtualShopping.entity.*;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,14 +12,14 @@ import java.util.List;
 
 public class OrderDto {
     private Long id;
-    private Date date;
+    private LocalDate date;
     private LocalTime hours;
     private ClientDto client;
     private List<OrderItemDto> items;
     private ClientAdressDto adressClient;
     private OrderStatus status;
 
-    public OrderDto(Long id, Date date, LocalTime hours, ClientDto client, ClientAdressDto adressClient, OrderStatus status) {
+    public OrderDto(Long id, LocalDate date, LocalTime hours, ClientDto client, ClientAdressDto adressClient, OrderStatus status) {
         this.id = id;
         this.date = date;
         this.hours = hours;
@@ -35,7 +36,7 @@ public class OrderDto {
         this.client = client;
         this.adressClient = adress;
         this.items = itemDto;
-        this.date = new Date();
+        //this.date = new Date();
         this.hours = LocalTime.now();
         this.status = status;
     }
@@ -48,11 +49,11 @@ public class OrderDto {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

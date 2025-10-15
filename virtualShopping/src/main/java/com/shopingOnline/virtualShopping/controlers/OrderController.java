@@ -23,4 +23,14 @@ public class OrderController {
     public List<OrderDto> getAll(){
         return service.getAll();
     }
+
+    @PutMapping(value="/update")
+    public OrderDto update(@RequestBody OrderSave data){
+        return service.update(data);
+    }
+
+    @DeleteMapping(value="/delete")
+    public List<OrderDto> delete(@RequestBody OrderSave data){
+        return service.delete(data);
+    }
 }

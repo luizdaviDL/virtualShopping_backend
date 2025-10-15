@@ -7,6 +7,7 @@ import com.shopingOnline.virtualShopping.components.product.Components;
 import com.shopingOnline.virtualShopping.components.serializer.OrderSave;
 import com.shopingOnline.virtualShopping.components.validationsUtil.client.ClientValidationAdressUtil;
 import com.shopingOnline.virtualShopping.components.validationsUtil.client.ClientValidationUtil;
+import com.shopingOnline.virtualShopping.components.validationsUtil.order.OrderValidationUtil;
 import com.shopingOnline.virtualShopping.components.validationsUtil.orderItem.OrderItemValidationUtil;
 import com.shopingOnline.virtualShopping.components.validationsUtil.payment.PaymentValidationUtil;
 import com.shopingOnline.virtualShopping.entity.*;
@@ -49,6 +50,8 @@ public class OrderService {
     private Components productComponent;
     @Autowired
     private ItemOrderRepository itemOrderRepository;
+    @Autowired
+    private OrderValidationUtil orderValidation;
 
     public OrderDto save(OrderSave data) {
         //verifuicar se ja exuiste os itens pedidos para o mesmo cliente, o mesmo não pode sazer o mesmo pedido duplicado
@@ -63,26 +66,40 @@ public class OrderService {
         Order orderInstance = new Order(client, adress, OrderStatus.DRAFT, OrderStatus.AWAITING_PAYMENT ,data.getTotalPrice());
         Order savedOrder = repository.save(orderInstance);
         List<ItemOrder> itemOrdes = itemOrdercomponent.ItemOrderSave_to_ItemOrders(data.getItems(), savedOrder);
+        for (ItemOrder item : itemOrdes) {
+            Product product = item.getProduct();
+            int updatedQuantity = product.getStock() - item.getQuantity();
+            product.setStock(updatedQuantity);
+            productRepository.save(product);
+        }
         orderInstance.setItems(itemOrdes);
         Order save =  repository.save(orderInstance);
         return  orderComponent.orderDto(save);
     }
 
     public List<OrderDto> getAll(){
-        List<OrderDto> dtos= new ArrayList<>();
         List<Order> orders = repository.findAll();
+        return orderComponent.orderDto_list(orders);
+    }
 
-        for(Order i: orders){
-            List<ItemOrder> items = itemOrderRepository.findByProduct(i.getId());
-            Client client = itemOrderRepository.finByClient(i.getId());
-            ClientAdress adress = adressRepository.findByClient(client.getId());
-            //ClientDto client = mapper.map(i.getClient(), ClientDto.class);
-            List<OrderItemDto> itmems = itemOrdercomponent.list_itemsOrderDto(i);
+    public OrderDto update(OrderSave data) {
+        orderValidation.validateOrderExist(data.getId());
+        Order order = repository.findById(data.getId()).get();
+        order.setStatus(data.getStatus());
+        Order updated = repository.save(order);
+        return orderComponent.orderDto(updated);
+    }
 
-            //ClientAdressDto adress = mapper.map(i.getClient(), ClientAdressDto.class);
+    public List<OrderDto> delete(OrderSave data) {
+        orderValidation.validateOrderExist(data.getId());
+        Order order = repository.findById(data.getId()).get();
 
+        if (order.getStatus() != OrderStatus.DRAFT) {
+            throw new IllegalStateException("Just ordes with status DRAFT could be delete.");
         }
-        return null;
+
+        repository.deleteById(data.getId());
+        return getAll();
     }
 
 

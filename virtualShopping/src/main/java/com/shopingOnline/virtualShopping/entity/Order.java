@@ -16,22 +16,22 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Date date;
+    private LocalDate date;
     @Column(name = "hours")
     private LocalTime hours;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemOrder> items;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_address_id")
     private ClientAdress adressClient;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment paymentType;
     private OrderStatus statusPayment;
@@ -43,7 +43,7 @@ public class Order {
 
     public Order(
                  Client client, ClientAdress adressClient, OrderStatus status, OrderStatus statusPayment, BigDecimal totalPrice) {
-        this.date = java.sql.Date.valueOf(LocalDate.now());
+        this.date = LocalDate.now();
         this.hours = LocalTime.now();
         this.client = client;
         this.adressClient = adressClient;
@@ -62,11 +62,11 @@ public class Order {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

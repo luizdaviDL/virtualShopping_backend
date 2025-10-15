@@ -9,7 +9,7 @@ public class ProductImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String url;   // exemplo: "https://cdn.minhaloja.com/produtos/123_1.jpg"
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "product")
     private Product produt;
 
