@@ -13,7 +13,7 @@ public class Client {
     private String name;
     private String email;
     private String phone;
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY)
     private List<ClientAdress> adresses;
 
     public Client(long id, String name, String email, String phone) {

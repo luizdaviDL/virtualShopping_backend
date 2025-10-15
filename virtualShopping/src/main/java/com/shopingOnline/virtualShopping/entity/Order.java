@@ -4,6 +4,7 @@ import com.shopingOnline.virtualShopping.components.serializer.ItemOrderSave;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
@@ -19,29 +20,29 @@ public class Order {
     @Column(name = "hours")
     private LocalTime hours;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private List<ItemOrder> items;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_address_id")
     private ClientAdress adressClient;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id")
     private Payment paymentType;
     private OrderStatus statusPayment;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     public Order() {}
 
     public Order(
-                 Client client, ClientAdress adressClient, OrderStatus status, OrderStatus statusPayment, Double totalPrice) {
+                 Client client, ClientAdress adressClient, OrderStatus status, OrderStatus statusPayment, BigDecimal totalPrice) {
         this.date = java.sql.Date.valueOf(LocalDate.now());
         this.hours = LocalTime.now();
         this.client = client;
@@ -125,11 +126,11 @@ public class Order {
         this.statusPayment = statusPayment;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 }

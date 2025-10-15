@@ -3,6 +3,7 @@ package com.shopingOnline.virtualShopping.components.serializer;
 import com.shopingOnline.virtualShopping.entity.*;
 import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -10,8 +11,8 @@ public class OrderSave {
     private Long id;
     private Long user;
     private List<ItemOrderSave> items;
-    private Double totalPrice;
-    private Double freight; //frete
+    private BigDecimal totalPrice;
+    private BigDecimal freight; //frete
     private Long adress;
     private int quantity;
     private String color;
@@ -19,7 +20,7 @@ public class OrderSave {
     public OrderSave() {
     }
 
-    public OrderSave(Long id, Long user, List<ItemOrderSave> items, Double totalPrice, Double freight, Long adress, int quantity, String color) {
+    public OrderSave(Long id, Long user, List<ItemOrderSave> items, BigDecimal totalPrice, BigDecimal freight, Long adress, int quantity, String color) {
         this.id = id;
         this.user = user;
         this.items = items;
@@ -70,19 +71,19 @@ public class OrderSave {
         this.items = items;
     }
 
-    public Double getTotalPrice() {
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(Double totalPrice) {
+    public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
 
-    public Double getFreight() {
+    public BigDecimal getFreight() {
         return freight;
     }
 
-    public void setFreight(Double freight) {
+    public void setFreight(BigDecimal freight) {
         this.freight = freight;
     }
 

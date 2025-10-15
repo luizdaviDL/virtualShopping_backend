@@ -16,7 +16,7 @@ public class ClientAdress {
     private String neighborhood;
     private String city;
     private String state;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id")
     private Client client;
 
