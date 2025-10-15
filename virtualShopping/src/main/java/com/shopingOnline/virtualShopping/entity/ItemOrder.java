@@ -42,6 +42,9 @@ public class ItemOrder {
         this.color = i.getColor();
     }
 
+    public ItemOrder() {
+    }
+
     public Double getUnicPrice() {
         return unicPrice;
     }

@@ -47,6 +47,8 @@ public class OrderService {
     private OrderComponent orderComponent;
     @Autowired
     private Components productComponent;
+    @Autowired
+    private ItemOrderRepository itemOrderRepository;
 
     public OrderDto save(OrderSave data) {
         //verifuicar se ja exuiste os itens pedidos para o mesmo cliente, o mesmo não pode sazer o mesmo pedido duplicado
@@ -67,11 +69,17 @@ public class OrderService {
     }
 
     public List<OrderDto> getAll(){
-        List<Order> orders = repository.findAll();
         List<OrderDto> dtos= new ArrayList<>();
+        List<Order> orders = repository.findAll();
+
         for(Order i: orders){
-            ClientDto client = mapper.map(i.getClient(), ClientDto.class);
-            ClientAdressDto adress = mapper.map(i.getClient(), ClientAdressDto.class);
+            List<ItemOrder> items = itemOrderRepository.findByProduct(i.getId());
+            Client client = itemOrderRepository.finByClient(i.getId());
+            ClientAdress adress = adressRepository.findByClient(client.getId());
+            //ClientDto client = mapper.map(i.getClient(), ClientDto.class);
+            List<OrderItemDto> itmems = itemOrdercomponent.list_itemsOrderDto(i);
+
+            //ClientAdressDto adress = mapper.map(i.getClient(), ClientAdressDto.class);
 
         }
         return null;

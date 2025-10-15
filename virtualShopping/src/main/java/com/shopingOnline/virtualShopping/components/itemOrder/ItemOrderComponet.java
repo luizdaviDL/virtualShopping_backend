@@ -45,4 +45,18 @@ public class ItemOrderComponet {
     }
 
 
+    public List<OrderItemDto> list_itemsOrderDto(Order data){
+        List<OrderItemDto> list = new ArrayList<>();
+      /*  for(Order i: data){
+            Product product = productRepository.findById(i.getProductId()).get();
+            ItemOrder instance = new ItemOrder(i);
+            instance.setProduct(product);
+            instance.setOrder(order);
+            ItemOrder item = repository.save(instance);
+            list.add(item);
+        }*/
+        return list;
+    }
+
+
 }
