@@ -1,21 +1,23 @@
 package com.shopingOnline.virtualShopping.components.serializer;
 
 import com.shopingOnline.virtualShopping.entity.Category;
+import com.shopingOnline.virtualShopping.entity.ColorProduct;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProductSave {
     private Long id;
     private String name;
     private String descripion;
-    private double price;
+    private BigDecimal price;
     private int stock;
-    private List<String> colores;
+    private List<ColorProduct> colores;
     private List<String> size;
     private Long category;
     private List<String> urlsImage;
 
-    public ProductSave(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Long category, List<String> urlsImage) {
+    public ProductSave(Long id, String name, String descripion, BigDecimal price, int stock, List<ColorProduct> colores, List<String> size, Long category, List<String> urlsImage) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -54,11 +56,11 @@ public class ProductSave {
         this.descripion = descripion;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -70,11 +72,11 @@ public class ProductSave {
         this.stock = stock;
     }
 
-    public List<String> getColores() {
+    public List<ColorProduct> getColores() {
         return colores;
     }
 
-    public void setColores(List<String> colores) {
+    public void setColores(List<ColorProduct> colores) {
         this.colores = colores;
     }
 

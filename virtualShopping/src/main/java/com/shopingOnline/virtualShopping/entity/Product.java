@@ -3,6 +3,7 @@ package com.shopingOnline.virtualShopping.entity;
 import com.shopingOnline.virtualShopping.components.serializer.ProductSave;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +15,12 @@ public class Product {
     private Long id;
     private String name;
     private String descripion;
-    private double price;
+    private BigDecimal price;
     private int stock;
     @ElementCollection
     @CollectionTable(name = "product_colors", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "color")
-    private List<String> colores;
+    private List<ColorProduct> colores;
     @ElementCollection
     @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "size")
@@ -32,7 +33,7 @@ public class Product {
     @Column(name = "url")
     private List<String> urlsImage;
 
-    public Product(Long id, String name, String descripion, double price, int stock, List<String> colores, List<String> size, Category category, List<String> urlsImage) {
+    public Product(Long id, String name, String descripion, BigDecimal price, int stock, List<ColorProduct> colores, List<String> size, Category category, List<String> urlsImage) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -84,11 +85,11 @@ public class Product {
         this.descripion = descripion;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -100,11 +101,11 @@ public class Product {
         this.stock = stock;
     }
 
-    public List<String> getColores() {
+    public List<ColorProduct> getColores() {
         return colores;
     }
 
-    public void setColores(List<String> colores) {
+    public void setColores(List<ColorProduct> colores) {
         this.colores = colores;
     }
 
