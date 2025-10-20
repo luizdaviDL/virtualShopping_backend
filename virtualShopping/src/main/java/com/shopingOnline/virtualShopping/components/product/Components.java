@@ -25,7 +25,7 @@ public class Components {
         for(Product i:  data){
             CategoryDto dtoCategory = mapper.map(i.getCategory(), CategoryDto.class);
             for(ColorProduct co: i.getColores()){
-                colors.add(mapper.map(i.getColores(), ColorsDto.class));
+                colors.add(mapper.map(co, ColorsDto.class));
             }
 
             ProductDto dto = new ProductDto(i, dtoCategory,colors);

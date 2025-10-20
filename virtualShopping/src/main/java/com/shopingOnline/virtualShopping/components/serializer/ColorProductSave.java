@@ -1,15 +1,25 @@
 package com.shopingOnline.virtualShopping.components.serializer;
 
 public class ColorProductSave {
+    private Long id;
     private String name;
     private String value;
 
     public ColorProductSave() {
     }
 
-    public ColorProductSave(String name, String value) {
+    public ColorProductSave(Long id, String name, String value) {
+        this.id = id;
         this.name = name;
         this.value = value;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {

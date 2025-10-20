@@ -1,17 +1,22 @@
 package com.shopingOnline.virtualShopping.entity;
 
 import com.shopingOnline.virtualShopping.components.serializer.ColorProductSave;
-import jakarta.persistence.Embeddable;
+import jakarta.persistence.*;
 
-@Embeddable
+@Entity
+@Table(name = "color_product")
 public class ColorProduct {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private String value;
 
     public ColorProduct() {
     }
 
-    public ColorProduct(String name, String value) {
+    public ColorProduct(Long id, String name, String value) {
+        this.id = id;
         this.name = name;
         this.value = value;
     }
@@ -31,6 +36,14 @@ public class ColorProduct {
 
     public String getValue() {
         return value;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setValue(String value) {

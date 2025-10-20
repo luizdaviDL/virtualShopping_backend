@@ -23,6 +23,7 @@ public class ClientAdressController {
     public List<ClientAdressDto> getAll(){
         return service.getAll();
     }
+
     @PutMapping(value = "/update")
     public ClientAdressDto update(@RequestBody ClientAdressSave data){
         return service.update(data);

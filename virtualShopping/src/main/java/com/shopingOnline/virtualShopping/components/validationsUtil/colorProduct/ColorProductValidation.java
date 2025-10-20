@@ -17,13 +17,22 @@ public class ColorProductValidation {
     @Autowired
     private ColorProductRepository repository;
 
-    public  void validateColorExist(List<ColorProductSave> data){
-        for(ColorProductSave i: data){
-            Optional<ColorProduct> color = Optional.ofNullable(repository.findByName(i.getName()));
-            if(color.isPresent()){
-                throw new BusinessException("this color already exist in the data base" + i.getName() );
-            }
+    public  void validateColorExist(ColorProductSave data){
+        Optional<ColorProduct> color = Optional.ofNullable(repository.findByName(data.getName()));
+        if(color.isPresent()){
+            throw new BusinessException("this color already exist in the data base" + data.getName() );
         }
 
     }
+
+    public void validateColorsExist(List<Long> colorIds) {
+        List<ColorProduct> foundColors = repository.findAllById(colorIds);
+
+        if (foundColors.size() != colorIds.size()) {
+            throw new BusinessException("One or more color IDs do not exist.");
+        }
+    }
+
+
+
 }

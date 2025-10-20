@@ -17,9 +17,11 @@ public class Product {
     private String descripion;
     private BigDecimal price;
     private int stock;
-    @ElementCollection
-    @CollectionTable(name = "product_colors", joinColumns = @JoinColumn(name = "product_id"))
-    @Column(name = "color")
+    @ManyToMany
+    @JoinTable(name = "product_colors",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "color_id")
+    )
     private List<ColorProduct> colores;
     @ElementCollection
     @CollectionTable(name = "product_sizes", joinColumns = @JoinColumn(name = "product_id"))
@@ -48,13 +50,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(ProductSave data, Category category) {
+    public Product(ProductSave data, Category category, List<ColorProduct> colores) {
         this.id = data.getId();
         this.name = data.getName();
         this.descripion = data.getDescripion();
         this.price = data.getPrice();
         this.stock = data.getStock();
-        this.colores = data.getColores();
+        this.colores = colores;
         this.size = data.getSize();
         this.urlsImage = data.getUrlsImage();
         this.category = category;

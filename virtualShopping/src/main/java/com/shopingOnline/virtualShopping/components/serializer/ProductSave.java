@@ -12,12 +12,12 @@ public class ProductSave {
     private String descripion;
     private BigDecimal price;
     private int stock;
-    private List<ColorProduct> colores;
+    private List<Long> colores;
     private List<String> size;
     private Long category;
     private List<String> urlsImage;
 
-    public ProductSave(Long id, String name, String descripion, BigDecimal price, int stock, List<ColorProduct> colores, List<String> size, Long category, List<String> urlsImage) {
+    public ProductSave(Long id, String name, String descripion, BigDecimal price, int stock, List<Long> colores, List<String> size, Long category, List<String> urlsImage) {
         this.id = id;
         this.name = name;
         this.descripion = descripion;
@@ -72,11 +72,11 @@ public class ProductSave {
         this.stock = stock;
     }
 
-    public List<ColorProduct> getColores() {
+    public List<Long> getColores() {
         return colores;
     }
 
-    public void setColores(List<ColorProduct> colores) {
+    public void setColores(List<Long> colores) {
         this.colores = colores;
     }
 
