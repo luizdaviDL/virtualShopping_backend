@@ -33,4 +33,9 @@ public class ProductController {
         return service.getAllProducts();
     }
 
+    @PatchMapping
+    public ProductDto patchProduct(@RequestBody ProductSave data) {
+        return service.patchProduct(data);
+    }
+
 }

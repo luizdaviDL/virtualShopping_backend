@@ -5,6 +5,7 @@ import com.shopingOnline.virtualShopping.components.serializer.ColorProductSave;
 import com.shopingOnline.virtualShopping.repository.ColorProductRepository;
 import com.shopingOnline.virtualShopping.services.ColorProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,5 +41,12 @@ public class ColorProductController {
         service.delete(data.getId());
         return findAll();
     }
+
+    @PatchMapping
+    public ResponseEntity<ColorsDto> patchColor(@RequestBody ColorProductSave data) {
+        ColorsDto updated = service.patchColor(data);
+        return ResponseEntity.ok(updated);
+    }
+
 
 }

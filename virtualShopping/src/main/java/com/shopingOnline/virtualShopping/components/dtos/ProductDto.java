@@ -5,6 +5,7 @@ import com.shopingOnline.virtualShopping.entity.ColorProduct;
 import com.shopingOnline.virtualShopping.entity.Product;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProductDto {
@@ -17,8 +18,9 @@ public class ProductDto {
     private List<String> size;
     private String description;
     private CategoryDto category;
+    private LocalDateTime createdAt;
 
-    public ProductDto(Long id, String name, BigDecimal price, List<String> images, int stock, List<ColorsDto> colors, List<String> size, String description, CategoryDto category) {
+    public ProductDto(Long id, String name, BigDecimal price, List<String> images, int stock, List<ColorsDto> colors, List<String> size, String description, CategoryDto category, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -28,6 +30,7 @@ public class ProductDto {
         this.size = size;
         this.description = description;
         this.category = category;
+        this.createdAt = createdAt;
     }
 
     public ProductDto() {
@@ -44,6 +47,7 @@ public class ProductDto {
         this.category = dtoCategory;
         this.description = i.getDescripion();
         this.category = dtoCategory;
+        this.createdAt = i.getCreateAt();
     }
 
     public ProductDto(Product i, CategoryDto dtoCategory) {
@@ -56,6 +60,7 @@ public class ProductDto {
         this.category = dtoCategory;
         this.description = i.getDescripion();
         this.category = dtoCategory;
+        this.createdAt = i.getCreateAt();
     }
 
     public Long getId() {
@@ -128,5 +133,13 @@ public class ProductDto {
 
     public void setCategory(CategoryDto category) {
         this.category = category;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

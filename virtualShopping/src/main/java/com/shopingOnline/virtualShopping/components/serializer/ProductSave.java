@@ -11,7 +11,7 @@ public class ProductSave {
     private String name;
     private String descripion;
     private BigDecimal price;
-    private int stock;
+    private Integer  stock;
     private List<Long> colores;
     private List<String> size;
     private Long category;
@@ -64,11 +64,11 @@ public class ProductSave {
         this.price = price;
     }
 
-    public int getStock() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStock(int stock) {
+    public void setStock(Integer stock) {
         this.stock = stock;
     }
 

@@ -96,4 +96,37 @@ public class ProductService {
         return component.listDtoProduct(getProducts);
     }
 
+    public ProductDto patchProduct(ProductSave data) {
+        Product product = repository.findById(data.getId())
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        if (data.getName() != null) product.setName(data.getName());
+        if (data.getDescripion() != null) product.setDescripion(data.getDescripion());
+        if (data.getPrice() != null) product.setPrice(data.getPrice());
+        if (data.getStock() != null) product.setStock(data.getStock());
+        if (data.getSize() != null) product.setSize(data.getSize());
+        if (data.getUrlsImage() != null) product.setUrlsImage(data.getUrlsImage());
+
+        if (data.getCategory() != null) {
+            Category category = cateRepository.findById(data.getCategory())
+                    .orElseThrow(() -> new RuntimeException("Categoria inválida"));
+            product.setCategory(category);
+        }
+
+        if (data.getColores() != null) {
+            List<ColorProduct> colors = colorRepository.findAllById(data.getColores());
+            product.setColores(colors);
+        }
+
+        Product saved = repository.save(product);
+
+        CategoryDto categoryDto = mappper.map(saved.getCategory(), CategoryDto.class);
+        List<ColorsDto> colorsDto = saved.getColores().stream()
+                .map(c -> mappper.map(c, ColorsDto.class))
+                .toList();
+
+        return new ProductDto(saved, categoryDto, colorsDto);
+    }
+
+
 }

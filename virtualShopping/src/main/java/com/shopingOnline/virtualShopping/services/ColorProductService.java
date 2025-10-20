@@ -63,5 +63,25 @@ public class ColorProductService {
         repository.deleteById(id);
     }
 
+    public ColorsDto patchColor(ColorProductSave data) {
+        if (data.getId() == null) {
+            throw new RuntimeException("ID da cor é obrigatório para o patch.");
+        }
+
+        ColorProduct color = repository.findById(data.getId())
+                .orElseThrow(() -> new RuntimeException("Cor não encontrada com ID: " + data.getId()));
+
+        if (data.getName() != null) {
+            color.setName(data.getName());
+        }
+
+        if (data.getValue() != null) {
+            color.setValue(data.getValue());
+        }
+
+        ColorProduct updated = repository.save(color);
+        return mapper.map(updated, ColorsDto.class);
+    }
+
 
 }

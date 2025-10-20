@@ -4,6 +4,8 @@ import com.shopingOnline.virtualShopping.components.serializer.ProductSave;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +36,7 @@ public class Product {
     @CollectionTable(name = "product_images", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "url")
     private List<String> urlsImage;
+    private LocalDateTime createAt;
 
     public Product(Long id, String name, String descripion, BigDecimal price, int stock, List<ColorProduct> colores, List<String> size, Category category, List<String> urlsImage) {
         this.id = id;
@@ -45,6 +48,7 @@ public class Product {
         this.size = size;
         this.category = category;
         this.urlsImage = urlsImage;
+        this.createAt = LocalDateTime.now();
     }
 
     public Product() {
@@ -60,6 +64,7 @@ public class Product {
         this.size = data.getSize();
         this.urlsImage = data.getUrlsImage();
         this.category = category;
+        this.createAt = LocalDateTime.now();
     }
 
 
@@ -133,5 +138,13 @@ public class Product {
 
     public void setUrlsImage(List<String> urlsImage) {
         this.urlsImage = urlsImage;
+    }
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 }
