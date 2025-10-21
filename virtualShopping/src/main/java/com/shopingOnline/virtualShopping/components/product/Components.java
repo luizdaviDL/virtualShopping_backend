@@ -20,10 +20,11 @@ public class Components {
 
     public List<ProductDto> listDtoProduct(List<Product> data){
         List<ProductDto> list = new ArrayList<>();
-        List<ColorsDto> colors = new ArrayList<>();
 
         for(Product i:  data){
             CategoryDto dtoCategory = mapper.map(i.getCategory(), CategoryDto.class);
+            List<ColorsDto> colors = new ArrayList<>();
+
             for(ColorProduct co: i.getColores()){
                 colors.add(mapper.map(co, ColorsDto.class));
             }
