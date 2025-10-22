@@ -34,7 +34,7 @@ public class ClientService {
         Client clientGet = repository.findById(data.getId()).get();
         clientGet.setName(data.getName());
         clientGet.setEmail(data.getEmail());
-        clientGet.setPhone(data.getPhone());
+        clientGet.setPassWord(data.getPassword());
         Client save = repository.save(clientGet);
         return mapper.map(save, ClientDto.class);
     }
@@ -49,4 +49,33 @@ public class ClientService {
         repository.deleteById(data.getId());
         return getAll();
     }
+
+    public ClientDto patch(ClientSaving data) {
+        ClientValidationUtil.validateClientExistById(repository, data.getId());
+
+        Client existingClient = repository.findById(data.getId()).get();
+
+        if (data.getName() != null && !data.getName().isBlank()) {
+            existingClient.setName(data.getName());
+        }
+
+        if (data.getEmail() != null && !data.getEmail().isBlank()) {
+            ClientValidationUtil.validateEmailExist(repository, data.getEmail());
+            existingClient.setEmail(data.getEmail());
+        }
+
+        if (data.getPassword() != null && !data.getPassword().isBlank()) {
+            existingClient.setPassWord(data.getPassword());
+        }
+        Client saved = repository.save(existingClient);
+        return mapper.map(saved, ClientDto.class);
+    }
+
+    public ClientDto getById(long id) {
+        ClientValidationUtil.validateClientExistById(repository, id);
+        Client client = repository.findById(id).get();
+        return mapper.map(client, ClientDto.class);
+    }
+
+
 }

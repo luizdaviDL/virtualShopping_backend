@@ -4,6 +4,7 @@ import com.shopingOnline.virtualShopping.components.dtos.ClientDto;
 import com.shopingOnline.virtualShopping.components.serializer.ClientSaving;
 import com.shopingOnline.virtualShopping.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,4 +35,18 @@ public class ClientController {
     public List<ClientDto> delete(@RequestBody ClientSaving data){
         return service.delete(data);
     }
+
+    @PatchMapping
+    public ResponseEntity<ClientDto> patchClient(@RequestBody ClientSaving data) {
+        ClientDto updated = service.patch(data);
+        return ResponseEntity.ok(updated);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ClientDto> getById(@PathVariable long id) {
+        ClientDto client = service.getById(id);
+        return ResponseEntity.ok(client);
+    }
+
+
 }

@@ -4,13 +4,13 @@ public class ClientDto {
     private long id;
     private String name;
     private String email;
-    private String phone;
+    private String passWord;
 
-    public ClientDto(long id, String name, String email, String phone) {
+    public ClientDto(long id, String name, String email, String passWord) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phone = phone;
+        this.passWord = passWord;
     }
 
     public ClientDto() {
@@ -40,11 +40,11 @@ public class ClientDto {
         this.email = email;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getPassWord() {
+        return passWord;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }
