@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -77,5 +78,18 @@ public class ClientService {
         return mapper.map(client, ClientDto.class);
     }
 
+    public ClientDto login(String email, String password) {
+        ClientValidationUtil.validateEmailNotExist(repository, email);
+        Optional<Client> clientOpt = repository.findByEmail(email);
+
+        if (clientOpt.isPresent()) {
+            Client client = clientOpt.get();
+            if (client.getPassWord().equals(password)) {
+                return mapper.map(client, ClientDto.class);
+            }
+        }
+
+        return null; // login inválido
+    }
 
 }

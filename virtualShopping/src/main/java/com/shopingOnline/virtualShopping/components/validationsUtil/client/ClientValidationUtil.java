@@ -18,10 +18,10 @@ public class ClientValidationUtil {
         }
     }
 
-    public static void validateClientNotExist(ClientRepository repository, String name){
-        Optional<Client> findName = repository.findByName(name);
+    public static void validateEmailNotExist(ClientRepository repository, String name){
+        Optional<Client> findName = repository.findByEmail(name);
         if(findName.isEmpty()){
-            throw new BusinessException("Client not exists in the database: " + name);
+            throw new BusinessException("Email not exists in the database: " + name);
         }
     }
 

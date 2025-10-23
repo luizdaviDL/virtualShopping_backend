@@ -70,4 +70,50 @@ public class ClientAdressService {
         repository.deleteById(data.getId());
         return getAll();
     }
+
+    public List<ClientAdressDto> findByClientId(Long clientId) {
+        List<ClientAdress> adresses = repository.findByClientId(clientId);
+        return components.lisAdressDto(adresses);
+    }
+
+    public ClientAdressDto patch(ClientAdressSave data) {
+        Optional<ClientAdress> optionalAdress = repository.findById(data.getId());
+        if (optionalAdress.isEmpty()) {
+            throw new RuntimeException("Address not found with id: " + data.getId());
+        }
+
+        ClientAdress adress = optionalAdress.get();
+
+        if (data.getCep() != null) {
+            adress.setCep(data.getCep());
+        }
+        if (data.getCity() != null) {
+            adress.setCity(data.getCity());
+        }
+        if (data.getState() != null) {
+            adress.setState(data.getState());
+        }
+        if (data.getAdress() != null) {
+            adress.setAdress(data.getAdress());
+        }
+        if (data.getNumberHome() != null) {
+            adress.setNumberHome(data.getNumberHome());
+        }
+        if (data.getComplementAdress() != null) {
+            adress.setComplementAdress(data.getComplementAdress());
+        }
+        if (data.getNeighborhood() != null) {
+            adress.setNeighborhood(data.getNeighborhood());
+        }
+        if (data.getClient() != null) {
+            ClientValidationUtil.validateClientExistById(clientRepository, data.getClient());
+            Client client = clientRepository.findById(data.getClient()).get();
+            adress.setClient(client);
+        }
+
+        ClientAdress updated = repository.save(adress);
+
+        ClientDto clientDto = mapper.map(updated.getClient(), ClientDto.class);
+        return new ClientAdressDto(updated, clientDto);
+    }
 }

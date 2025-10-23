@@ -4,10 +4,13 @@ import com.shopingOnline.virtualShopping.components.dtos.ClientDto;
 import com.shopingOnline.virtualShopping.components.serializer.ClientSaving;
 import com.shopingOnline.virtualShopping.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/client")
@@ -47,6 +50,25 @@ public class ClientController {
         ClientDto client = service.getById(id);
         return ResponseEntity.ok(client);
     }
+    @PostMapping(value = "/login")
+    public ResponseEntity<?> login(@RequestBody ClientSaving loginData) {
+        ClientDto client = service.login(loginData.getEmail(), loginData.getPassword());
 
+        Map<String, Object> response = new HashMap<>();
+
+        if (client != null) {
+            response.put("success", true);
+            response.put("message", "Login realizado com sucesso!");
+            response.put("data", client);
+
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("success", false);
+            response.put("message", "Email ou senha inválidos!");
+            response.put("data", null);
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+    }
 
 }
