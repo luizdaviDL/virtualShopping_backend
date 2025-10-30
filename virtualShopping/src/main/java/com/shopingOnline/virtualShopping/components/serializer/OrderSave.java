@@ -1,11 +1,8 @@
 package com.shopingOnline.virtualShopping.components.serializer;
 
-import com.shopingOnline.virtualShopping.entity.*;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
-import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.List;
 
 public class OrderSave {
@@ -17,12 +14,12 @@ public class OrderSave {
     private BigDecimal freight; //frete
     private Long adress;
     private int quantity;
-    private String color;
+    private Long color;
 
     public OrderSave() {
     }
 
-    public OrderSave(Long id, Long user, List<ItemOrderSave> items, BigDecimal totalPrice, BigDecimal freight, Long adress, int quantity, String color) {
+    public OrderSave(Long id, Long user, List<ItemOrderSave> items, BigDecimal totalPrice, BigDecimal freight, Long adress, int quantity, Long color) {
         this.id = id;
         this.user = user;
         this.items = items;
@@ -61,11 +58,11 @@ public class OrderSave {
         this.quantity = quantity;
     }
 
-    public String getColor() {
+    public Long getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Long color) {
         this.color = color;
     }
 

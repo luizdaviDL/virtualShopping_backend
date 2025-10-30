@@ -29,6 +29,8 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepository;
     @Autowired
+    private UserBehaviorRepository behaviorRepository;
+    @Autowired
     private ClientRepository clientRepository;
     @Autowired
     private ClientAdressRepository adressRepository;
@@ -74,6 +76,8 @@ public class OrderService {
         }
         orderInstance.setItems(itemOrdes);
         Order save =  repository.save(orderInstance);
+        UserBehavior behavior = new UserBehavior(save.getId(), save.getTotalPrice(), save.getDate());
+        behaviorRepository.save(behavior);
         return  orderComponent.orderDto(save);
     }
 

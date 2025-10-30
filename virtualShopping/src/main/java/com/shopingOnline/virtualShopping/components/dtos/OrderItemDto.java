@@ -3,12 +3,8 @@ package com.shopingOnline.virtualShopping.components.dtos;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.shopingOnline.virtualShopping.components.serializer.ItemOrderSave;
 import com.shopingOnline.virtualShopping.entity.ItemOrder;
-import com.shopingOnline.virtualShopping.entity.Order;
 import com.shopingOnline.virtualShopping.entity.Product;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderItemDto {
     private Long id;
@@ -17,7 +13,7 @@ public class OrderItemDto {
     private int quantity;
     private Double unicPrice;
     private Double discount;
-    private String color;
+    private Long color;
     private String size;
     private CategoryDto category;
 
@@ -63,11 +59,11 @@ public class OrderItemDto {
         this.name = name;
     }
 
-    public String getColor() {
+    public Long getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Long color) {
         this.color = color;
     }
 

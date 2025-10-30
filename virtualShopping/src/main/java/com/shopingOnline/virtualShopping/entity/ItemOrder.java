@@ -3,7 +3,7 @@ package com.shopingOnline.virtualShopping.entity;
 import com.shopingOnline.virtualShopping.components.serializer.ItemOrderSave;
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "item_order")
@@ -17,13 +17,13 @@ public class ItemOrder {
     @JoinColumn(name = "order_id")
     private Order order;
     private int quantity;
-    private Double unicPrice;
-    private Double discount; //frete
+    private BigDecimal unicPrice;
+    private BigDecimal discount; //frete
     private String size;
-    private String color;
+    private Long color;
 
 
-    public ItemOrder(Long id, Product product, int quantity, Double unicPrice, Double discount, String size, String color) {
+    public ItemOrder(Long id, Product product, int quantity, BigDecimal unicPrice, BigDecimal discount, String size, Long color) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
@@ -45,14 +45,17 @@ public class ItemOrder {
     public ItemOrder() {
     }
 
-    public Double getUnicPrice() {
+    public BigDecimal getUnicPrice() {
         return unicPrice;
     }
 
-    public void setUnicPrice(Double unicPrice) {
+    public void setUnicPrice(BigDecimal unicPrice) {
         this.unicPrice = unicPrice;
     }
 
+    public void setDiscount(BigDecimal discount) {
+        this.discount = discount;
+    }
 
     public Long getId() {
         return id;
@@ -78,12 +81,8 @@ public class ItemOrder {
         this.quantity = quantity;
     }
 
-    public Double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
-    }
-
-    public void setDiscount(Double discount) {
-        this.discount = discount;
     }
 
     public String getSize() {
@@ -102,11 +101,11 @@ public class ItemOrder {
         this.order = order;
     }
 
-    public String getColor() {
+    public Long getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Long color) {
         this.color = color;
     }
 }

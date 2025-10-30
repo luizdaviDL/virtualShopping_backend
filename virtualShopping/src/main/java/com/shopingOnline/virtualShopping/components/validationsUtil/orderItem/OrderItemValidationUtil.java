@@ -25,13 +25,15 @@ public class OrderItemValidationUtil {
             if(i.getQuantity() > product.get().getStock()){
                 throw new BusinessException("the stock is not enougth to product id: "+ i.getProductId());
             }
-
-            if(!i.getUnicPrice().equals(product.get().getPrice())){
-                throw new BusinessException("the price is not update to product id: "+ i.getProductId());
+            if (!i.getUnicPrice().equals(product.get().getPrice())) {
+                throw new BusinessException("the price is not update to product id: " + i.getProductId());
             }
 
+
             boolean sizeAvailable = product.get().getSize().contains(i.getSize());
-            boolean colorAvailable = product.get().getColores().contains(i.getColor());
+            boolean colorAvailable = product.get().getColores()
+                    .stream()
+                    .anyMatch(c -> c.getId().equals(i.getColor()));
 
             if (!sizeAvailable) {
                 throw new BusinessException("Size '" + i.getSize() + "' is not available for product id: " + i.getProductId());

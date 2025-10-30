@@ -1,17 +1,16 @@
 package com.shopingOnline.virtualShopping.components.serializer;
 
-import com.shopingOnline.virtualShopping.entity.Product;
-import jakarta.persistence.ManyToOne;
+import java.math.BigDecimal;
 
 public class ItemOrderSave {
     private Long productId;
     private int quantity;
-    private Double unicPrice;
-    private Double discount;
+    private BigDecimal unicPrice;
+    private BigDecimal discount;
     private String size;
-    private String color;
+    private Long color;
 
-    public ItemOrderSave(Long productId, int quantity, Double unicPrice, Double discount, String size, String color) {
+    public ItemOrderSave(Long productId, int quantity, BigDecimal unicPrice, BigDecimal discount, String size, Long color) {
         this.productId = productId;
         this.quantity = quantity;
         this.unicPrice = unicPrice;
@@ -39,19 +38,19 @@ public class ItemOrderSave {
         this.quantity = quantity;
     }
 
-    public Double getUnicPrice() {
+    public BigDecimal getUnicPrice() {
         return unicPrice;
     }
 
-    public void setUnicPrice(Double unicPrice) {
+    public void setUnicPrice(BigDecimal unicPrice) {
         this.unicPrice = unicPrice;
     }
 
-    public Double getDiscount() {
+    public BigDecimal getDiscount() {
         return discount;
     }
 
-    public void setDiscount(Double discount) {
+    public void setDiscount(BigDecimal discount) {
         this.discount = discount;
     }
 
@@ -63,11 +62,11 @@ public class ItemOrderSave {
         this.size = size;
     }
 
-    public String getColor() {
+    public Long getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Long color) {
         this.color = color;
     }
 }
