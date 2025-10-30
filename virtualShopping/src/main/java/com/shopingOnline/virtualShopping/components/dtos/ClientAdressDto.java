@@ -14,9 +14,10 @@ public class ClientAdressDto {
     private String numberHome;
     private String complement;
     private String neighborhood;
+    private String country;
     private ClientDto client;
 
-    public ClientAdressDto(Long id, String city, String state, String cep, String adress, String houseNumber, String complement, String neighborhood, ClientDto client) {
+    public ClientAdressDto(Long id, String city, String state, String cep, String adress, String houseNumber, String complement, String neighborhood, String country,ClientDto client) {
         this.id = id;
         this.city = city;
         this.state = state;
@@ -25,6 +26,7 @@ public class ClientAdressDto {
         this.numberHome = houseNumber;
         this.complement = complement;
         this.neighborhood = neighborhood;
+        this.country = country;
         this.client = client;
     }
 
@@ -40,6 +42,7 @@ public class ClientAdressDto {
         this.numberHome = save.getNumberHome();
         this.complement = save.getComplementAdress();
         this.neighborhood = save.getNeighborhood();
+        this.country = save.getCountry();
         this.client = clientDto;
     }
 
@@ -113,5 +116,13 @@ public class ClientAdressDto {
 
     public void setNeighborhood(String neighborhood) {
         this.neighborhood = neighborhood;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

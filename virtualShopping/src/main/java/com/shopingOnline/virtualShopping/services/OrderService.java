@@ -76,7 +76,18 @@ public class OrderService {
         }
         orderInstance.setItems(itemOrdes);
         Order save =  repository.save(orderInstance);
-        UserBehavior behavior = new UserBehavior(save.getId(), save.getTotalPrice(), save.getDate());
+        UserBehavior behavior = new UserBehavior(
+                save.getTotalPrice(),
+                0,
+                save.getItems().size(),
+                //save.getPaymentType().toString(),
+                //save.getClient().getAge(),
+                save.getAdressClient().getState(),
+                save.getAdressClient().getCountry(),
+                //save.getDevice(),
+                false
+        );
+
         behaviorRepository.save(behavior);
         return  orderComponent.orderDto(save);
     }

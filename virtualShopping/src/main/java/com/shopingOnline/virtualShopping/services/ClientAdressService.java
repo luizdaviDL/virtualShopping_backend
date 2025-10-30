@@ -105,6 +105,10 @@ public class ClientAdressService {
         if (data.getNeighborhood() != null) {
             adress.setNeighborhood(data.getNeighborhood());
         }
+
+        if (data.getCountry() != null) {
+            adress.setCountry(data.getCountry());
+        }
         if (data.getClient() != null) {
             ClientValidationUtil.validateClientExistById(clientRepository, data.getClient());
             Client client = clientRepository.findById(data.getClient()).get();

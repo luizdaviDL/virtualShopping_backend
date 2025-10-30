@@ -15,6 +15,7 @@ public class ClientAdress {
     private String complementAdress;
     private String neighborhood;
     private String city;
+    private String country;
     private String state;
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -116,5 +117,13 @@ public class ClientAdress {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

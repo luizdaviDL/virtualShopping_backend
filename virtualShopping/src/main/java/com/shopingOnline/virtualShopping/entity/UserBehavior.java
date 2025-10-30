@@ -1,39 +1,27 @@
 package com.shopingOnline.virtualShopping.entity;
 
-import com.shopingOnline.virtualShopping.enums.PaymentType;
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name = "user_behavior")
 public class UserBehavior {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
-    private Order order;
-
-    @Column(name = "total_shopping")
+    @Column(name = "total_shopping", precision = 15, scale = 2)
     private BigDecimal totalShopping;
 
     @Column(name = "section_time")
     private Integer sectionTime;
 
-    @Column(name = "interval_time")
-    private String intervalTime;
+    @Column(name = "item_cart")
+    private Integer itemCart;
 
-    @OneToMany
-    private List<ItemOrder> itemCart;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "payment_type")
-    private PaymentType paymentType;
+    @Column(name = "payment_tye")
+    private String paymentTye;
 
     @Column(name = "client_age")
     private Integer clientAge;
@@ -41,42 +29,35 @@ public class UserBehavior {
     @Column(name = "state")
     private String state;
 
+    @Column(name = "country")
+    private String country;
+
     @Column(name = "device")
     private String device;
 
-    @Column(name = "fraud")
-    private Boolean fraud;
+    @Column(name = "fraude")
+    private Boolean fraude;
 
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
+    // ===== CONSTRUTORES =====
 
-    public UserBehavior(Long id, Order order, BigDecimal totalShopping, Integer sectionTime, String intervalTime, List<ItemOrder> itemCart, PaymentType paymentType, Integer clientAge, String state, String device, Boolean fraud, LocalDateTime createdAt) {
-        this.id = id;
-        this.order = order;
+
+    public UserBehavior() {
+    }
+
+    public UserBehavior(BigDecimal totalShopping, Integer sectionTime, Integer itemCart,
+                        String state, String country, Boolean fraude) {
         this.totalShopping = totalShopping;
         this.sectionTime = sectionTime;
-        this.intervalTime = intervalTime;
         this.itemCart = itemCart;
-        this.paymentType = paymentType;
-        this.clientAge = clientAge;
+        this.paymentTye = null;
+        this.clientAge = null;
         this.state = state;
-        this.device = device;
-        this.fraud = fraud;
-        this.createdAt = createdAt;
+        this.country = country;
+        this.device = null;
+        this.fraude = fraude;
     }
 
-    public UserBehavior(Long id, BigDecimal totalPrice, LocalDate date) {
-        this.id = id;
-        this.totalShopping = totalPrice;
-        this.createdAt = date != null ? date.atStartOfDay() : LocalDateTime.now();
-        this.fraud = false;
-        this.sectionTime = 0;
-        this.intervalTime = "00:00";
-        this.clientAge = 0;
-        this.state = "Unknown";
-        this.device = "Unknown";
-        this.paymentType = PaymentType.CREDIT_CARD;
-    }
+    // ===== GETTERS e SETTERS =====
 
     public Long getId() {
         return id;
@@ -84,14 +65,6 @@ public class UserBehavior {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     public BigDecimal getTotalShopping() {
@@ -110,28 +83,20 @@ public class UserBehavior {
         this.sectionTime = sectionTime;
     }
 
-    public String getIntervalTime() {
-        return intervalTime;
-    }
-
-    public void setIntervalTime(String intervalTime) {
-        this.intervalTime = intervalTime;
-    }
-
-    public List<ItemOrder> getItemCart() {
+    public Integer getItemCart() {
         return itemCart;
     }
 
-    public void setItemCart(List<ItemOrder> itemCart) {
+    public void setItemCart(Integer itemCart) {
         this.itemCart = itemCart;
     }
 
-    public PaymentType getPaymentType() {
-        return paymentType;
+    public String getPaymentTye() {
+        return paymentTye;
     }
 
-    public void setPaymentType(PaymentType paymentType) {
-        this.paymentType = paymentType;
+    public void setPaymentTye(String paymentTye) {
+        this.paymentTye = paymentTye;
     }
 
     public Integer getClientAge() {
@@ -150,6 +115,14 @@ public class UserBehavior {
         this.state = state;
     }
 
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getDevice() {
         return device;
     }
@@ -158,19 +131,11 @@ public class UserBehavior {
         this.device = device;
     }
 
-    public Boolean getFraud() {
-        return fraud;
+    public Boolean getFraude() {
+        return fraude;
     }
 
-    public void setFraud(Boolean fraud) {
-        this.fraud = fraud;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setFraude(Boolean fraude) {
+        this.fraude = fraude;
     }
 }

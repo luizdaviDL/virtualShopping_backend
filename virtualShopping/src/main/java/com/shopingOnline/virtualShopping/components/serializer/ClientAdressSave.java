@@ -14,8 +14,9 @@ public class ClientAdressSave {
     private String city;
     private String state;
     private Long client;
+    private String country;
 
-    public ClientAdressSave(Long id, String adress, String cep, String numberHome, String complementAdress, String neighborhood, String city, String state, Long client) {
+    public ClientAdressSave(Long id, String adress, String cep, String numberHome, String complementAdress, String neighborhood, String city, String state, Long client, String country) {
         this.id = id;
         this.adress = adress;
         this.cep = cep;
@@ -25,6 +26,7 @@ public class ClientAdressSave {
         this.city = city;
         this.state = state;
         this.client = client;
+        this.country = country;
     }
 
     public ClientAdressSave() {
@@ -100,5 +102,13 @@ public class ClientAdressSave {
 
     public void setClient(Long client) {
         this.client = client;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
