@@ -54,13 +54,17 @@ public class OrderService {
     private ItemOrderRepository itemOrderRepository;
     @Autowired
     private OrderValidationUtil orderValidation;
+    @Autowired
+    private ClientValidationUtil clientValidation;
+    @Autowired
+    private ClientInformationRepository clientInformationRepository;
 
     public OrderDto save(OrderSave data) {
         //verifuicar se ja exuiste os itens pedidos para o mesmo cliente, o mesmo não pode sazer o mesmo pedido duplicado
        // Order order = repository.findByClient(data.getUser());
 
         validtion.ValidateProductsOrders(data);
-        ClientValidationUtil.validateClientExistById(clientRepository,data.getUser());
+        clientValidation.validateClientExistById(data.getUser());
         adressValidation.validateAdressExist(data.getAdress());
 
         Client client = clientRepository.findById(data.getUser()).get();
@@ -76,12 +80,14 @@ public class OrderService {
         }
         orderInstance.setItems(itemOrdes);
         Order save =  repository.save(orderInstance);
+        ClientInformation clientInfo = clientInformationRepository.finByIdClient(data.getUser());
+        System.out.println(clientInfo.getAge());
         UserBehavior behavior = new UserBehavior(
                 save.getTotalPrice(),
                 0,
                 save.getItems().size(),
-                //save.getPaymentType().toString(),
-                //save.getClient().getAge(),
+                save.getPaymentType().toString(),
+                clientInfo.getAge(),
                 save.getAdressClient().getState(),
                 save.getAdressClient().getCountry(),
                 //save.getDevice(),

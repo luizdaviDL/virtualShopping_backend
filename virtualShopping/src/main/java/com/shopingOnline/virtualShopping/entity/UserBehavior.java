@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.entity;
 
+import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -44,18 +45,19 @@ public class UserBehavior {
     public UserBehavior() {
     }
 
-    public UserBehavior(BigDecimal totalShopping, Integer sectionTime, Integer itemCart,
-                        String state, String country, Boolean fraude) {
-        this.totalShopping = totalShopping;
+
+    public UserBehavior(BigDecimal totalPrice, int sectionTime, int size, String paymentType, Integer age, String state, String country, boolean fraude) {
+        this.totalShopping = totalPrice;
         this.sectionTime = sectionTime;
-        this.itemCart = itemCart;
-        this.paymentTye = null;
-        this.clientAge = null;
+        this.itemCart = size;
+        this.paymentTye = paymentType;
+        this.clientAge = age;
         this.state = state;
         this.country = country;
-        this.device = null;
         this.fraude = fraude;
     }
+
+
 
     // ===== GETTERS e SETTERS =====
 

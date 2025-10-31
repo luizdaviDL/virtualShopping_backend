@@ -30,10 +30,12 @@ public class ClientAdressService {
     private ClientComponents components;
     @Autowired
     private ClientValidationAdressUtil validation;
+    @Autowired
+    private ClientValidationUtil clientValidationUtil;
 
     public ClientAdressDto save(ClientAdressSave data) {
         validation.validateAdressAlreadyExist(data.getCep(), data.getClient());
-        ClientValidationUtil.validateClientExistById(clientRepository,data.getClient());
+        clientValidationUtil.validateClientExistById(data.getClient());
         Client getClient = clientRepository.findById(data.getClient()).get();
         ClientAdress instance = new ClientAdress(data, getClient);
         ClientAdress save = repository.save(instance);
@@ -110,7 +112,7 @@ public class ClientAdressService {
             adress.setCountry(data.getCountry());
         }
         if (data.getClient() != null) {
-            ClientValidationUtil.validateClientExistById(clientRepository, data.getClient());
+            clientValidationUtil.validateClientExistById(data.getClient());
             Client client = clientRepository.findById(data.getClient()).get();
             adress.setClient(client);
         }

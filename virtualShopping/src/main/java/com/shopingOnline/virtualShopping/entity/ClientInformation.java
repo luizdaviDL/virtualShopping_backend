@@ -50,17 +50,16 @@ public class ClientInformation {
 
     public ClientInformation() {}
 
-    public ClientInformation(Client user, String firstName, String lastName,
+    public ClientInformation(String firstName, String lastName,
                              String phoneNumber, String documentNumber,
-                             LocalDate birthDate, String gender, Integer loyaltyPoints) {
-        this.user = user;
+                             LocalDate birthDate, String gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.documentNumber = documentNumber;
         this.birthDate = birthDate;
         this.gender = gender;
-        this.loyaltyPoints = loyaltyPoints;
+        this.loyaltyPoints = 0;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -105,6 +104,10 @@ public class ClientInformation {
 
     public Integer getLoyaltyPoints() { return loyaltyPoints; }
     public void setLoyaltyPoints(Integer loyaltyPoints) { this.loyaltyPoints = loyaltyPoints; }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
 
     public LocalDateTime getCreatedAt() { return createdAt; }
     public LocalDateTime getUpdatedAt() { return updatedAt; }

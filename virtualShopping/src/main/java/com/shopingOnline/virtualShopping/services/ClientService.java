@@ -22,16 +22,18 @@ public class ClientService {
     private ModelMapper mapper;
     @Autowired
     private ClientComponents component;
+    @Autowired
+    private ClientValidationUtil clientValidation;
 
     public ClientDto save(ClientSaving data) {
-        ClientValidationUtil.validateEmailExist(repository, data.getEmail());
+        clientValidation.validateEmailExist(data.getEmail());
         Client instance = mapper.map(data, Client.class);
         Client save = repository.save(instance);
         return mapper.map(save, ClientDto.class);
     }
 
     public ClientDto update(ClientSaving data) {
-        ClientValidationUtil.validateClientExistById(repository, data.getId());
+        clientValidation.validateClientExistById(data.getId());
         Client clientGet = repository.findById(data.getId()).get();
         clientGet.setName(data.getName());
         clientGet.setEmail(data.getEmail());
@@ -46,13 +48,13 @@ public class ClientService {
     }
 
     public List<ClientDto> delete(@RequestBody ClientSaving data) {
-        ClientValidationUtil.validateClientExistById(repository,data.getId());
+        clientValidation.validateClientExistById(data.getId());
         repository.deleteById(data.getId());
         return getAll();
     }
 
     public ClientDto patch(ClientSaving data) {
-        ClientValidationUtil.validateClientExistById(repository, data.getId());
+        clientValidation.validateClientExistById(data.getId());
 
         Client existingClient = repository.findById(data.getId()).get();
 
@@ -61,7 +63,7 @@ public class ClientService {
         }
 
         if (data.getEmail() != null && !data.getEmail().isBlank()) {
-            ClientValidationUtil.validateEmailExist(repository, data.getEmail());
+            clientValidation.validateEmailExist(data.getEmail());
             existingClient.setEmail(data.getEmail());
         }
 
@@ -73,13 +75,13 @@ public class ClientService {
     }
 
     public ClientDto getById(long id) {
-        ClientValidationUtil.validateClientExistById(repository, id);
+        clientValidation.validateClientExistById(id);
         Client client = repository.findById(id).get();
         return mapper.map(client, ClientDto.class);
     }
 
     public ClientDto login(String email, String password) {
-        ClientValidationUtil.validateEmailNotExist(repository, email);
+        clientValidation.validateEmailNotExist( email);
         Optional<Client> clientOpt = repository.findByEmail(email);
 
         if (clientOpt.isPresent()) {
