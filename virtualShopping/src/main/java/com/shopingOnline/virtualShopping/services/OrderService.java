@@ -81,16 +81,22 @@ public class OrderService {
         orderInstance.setItems(itemOrdes);
         Order save =  repository.save(orderInstance);
         ClientInformation clientInfo = clientInformationRepository.finByIdClient(data.getUser());
+        if (clientInfo == null) {
+            throw new RuntimeException("Client information not found: " + data.getUser());
+        }
+
         System.out.println(clientInfo.getAge());
         UserBehavior behavior = new UserBehavior(
+                client,
                 save.getTotalPrice(),
                 0,
+                0,
                 save.getItems().size(),
-                save.getPaymentType().toString(),
+                save.getPaymentType() != null ? save.getPaymentType().toString() : "DESCONHECIDO",
                 clientInfo.getAge(),
                 save.getAdressClient().getState(),
                 save.getAdressClient().getCountry(),
-                //save.getDevice(),
+                data.getDevice(),
                 false
         );
 

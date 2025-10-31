@@ -12,17 +12,23 @@ public class UserBehavior {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "client_id", referencedColumnName = "id")
+    private Client client;
     @Column(name = "total_shopping", precision = 15, scale = 2)
     private BigDecimal totalShopping;
 
     @Column(name = "section_time")
     private Integer sectionTime;
 
+    @Column(name = "interval_time")
+    private Integer intervalTime;
+
     @Column(name = "item_cart")
     private Integer itemCart;
 
-    @Column(name = "payment_tye")
-    private String paymentTye;
+    @Column(name = "payment_type")
+    private String paymentType;
 
     @Column(name = "client_age")
     private Integer clientAge;
@@ -46,17 +52,19 @@ public class UserBehavior {
     }
 
 
-    public UserBehavior(BigDecimal totalPrice, int sectionTime, int size, String paymentType, Integer age, String state, String country, boolean fraude) {
+    public UserBehavior(Client client,BigDecimal totalPrice, int sectionTime,int intervalTime , int size, String paymentType, Integer age, String state, String country,String device ,boolean fraude) {
+        this.client = client;
         this.totalShopping = totalPrice;
         this.sectionTime = sectionTime;
+        this.intervalTime = intervalTime;
         this.itemCart = size;
-        this.paymentTye = paymentType;
+        this.paymentType = paymentType;
         this.clientAge = age;
         this.state = state;
         this.country = country;
+        this.device = device;
         this.fraude = fraude;
     }
-
 
 
     // ===== GETTERS e SETTERS =====
@@ -94,11 +102,11 @@ public class UserBehavior {
     }
 
     public String getPaymentTye() {
-        return paymentTye;
+        return paymentType;
     }
 
     public void setPaymentTye(String paymentTye) {
-        this.paymentTye = paymentTye;
+        this.paymentType = paymentTye;
     }
 
     public Integer getClientAge() {
@@ -139,5 +147,21 @@ public class UserBehavior {
 
     public void setFraude(Boolean fraude) {
         this.fraude = fraude;
+    }
+
+    public Integer getIntervalTime() {
+        return intervalTime;
+    }
+
+    public void setIntervalTime(Integer intervalTime) {
+        this.intervalTime = intervalTime;
+    }
+
+    public String getPaymentType() {
+        return paymentType;
+    }
+
+    public void setPaymentType(String paymentType) {
+        this.paymentType = paymentType;
     }
 }

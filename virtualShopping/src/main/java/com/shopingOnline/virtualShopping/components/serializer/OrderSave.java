@@ -15,8 +15,21 @@ public class OrderSave {
     private Long adress;
     private int quantity;
     private Long color;
+    private String device;
 
     public OrderSave() {
+    }
+
+    public OrderSave(Long id, Long user, List<ItemOrderSave> items, BigDecimal totalPrice, BigDecimal freight, Long adress, int quantity, Long color, String device) {
+        this.id = id;
+        this.user = user;
+        this.items = items;
+        this.totalPrice = totalPrice;
+        this.freight = freight;
+        this.adress = adress;
+        this.quantity = quantity;
+        this.color = color;
+        this.device = device;
     }
 
     public OrderSave(Long id, Long user, List<ItemOrderSave> items, BigDecimal totalPrice, BigDecimal freight, Long adress, int quantity, Long color) {
@@ -100,5 +113,13 @@ public class OrderSave {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public String getDevice() {
+        return device;
+    }
+
+    public void setDevice(String device) {
+        this.device = device;
     }
 }
