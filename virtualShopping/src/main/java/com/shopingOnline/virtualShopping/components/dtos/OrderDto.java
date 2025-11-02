@@ -2,8 +2,10 @@ package com.shopingOnline.virtualShopping.components.dtos;
 
 import com.shopingOnline.virtualShopping.entity.*;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
+import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -18,27 +20,32 @@ public class OrderDto {
     private List<OrderItemDto> items;
     private ClientAdressDto adressClient;
     private OrderStatus status;
+    private BigDecimal totalPrice;
+    private PaymentStatus statusPayment;
 
-    public OrderDto(Long id, LocalDate date, LocalTime hours, ClientDto client, ClientAdressDto adressClient, OrderStatus status) {
+    public OrderDto(Long id, LocalDate date, LocalTime hours, ClientDto client, ClientAdressDto adressClient, OrderStatus status,BigDecimal totalPrice,PaymentStatus statusPayment) {
         this.id = id;
         this.date = date;
         this.hours = hours;
         this.client = client;
         this.adressClient = adressClient;
         this.status = status;
+        this.totalPrice = totalPrice;
+        this.statusPayment = statusPayment;
     }
 
     public OrderDto() {
     }
 
 
-    public OrderDto(ClientDto client, ClientAdressDto adress, ArrayList<OrderItemDto> itemDto, OrderStatus status) {
+    public OrderDto(ClientDto client, ClientAdressDto adress, ArrayList<OrderItemDto> itemDto, OrderStatus status,BigDecimal totalPrice) {
         this.client = client;
         this.adressClient = adress;
         this.items = itemDto;
         //this.date = new Date();
         this.hours = LocalTime.now();
         this.status = status;
+        this.totalPrice = totalPrice;
     }
 
     public Long getId() {
@@ -95,5 +102,21 @@ public class OrderDto {
 
     public void setStatus(OrderStatus status) {
         this.status = status;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public PaymentStatus getStatusPayment() {
+        return statusPayment;
+    }
+
+    public void setStatusPayment(PaymentStatus statusPayment) {
+        this.statusPayment = statusPayment;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

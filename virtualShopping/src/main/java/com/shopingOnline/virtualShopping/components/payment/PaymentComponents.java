@@ -16,7 +16,7 @@ public class PaymentComponents
         Payment payment = new Payment();
         payment.setOrder(order);
         payment.setTypePayment(data.getTypePayment());
-        payment.setStatusPayment(PaymentStatus.PENDING); // Sempre inicia como pendente
+        payment.setStatusPayment(PaymentStatus.PENDING);
         payment.setValue(data.getValue());
 
         // Dados para detecção de fraude

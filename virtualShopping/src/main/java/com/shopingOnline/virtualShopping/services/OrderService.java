@@ -86,21 +86,32 @@ public class OrderService {
             throw new RuntimeException("Client information not found: " + data.getUser());
         }
 
-        UserBehavior behavior = new UserBehavior(
-                client,
-                save.getTotalPrice(),
-                0,
-                0,
-                save.getItems().size(),
-                save.getPaymentType() != null ? save.getPaymentType().toString() : "DESCONHECIDO",
-                clientInfo.getAge(),
-                save.getAdressClient().getState(),
-                save.getAdressClient().getCountry(),
-                data.getDevice(),
-                false
-        );
+        Optional<UserBehavior> existingBehaviorOpt = behaviorRepository.findByClientId(client.getId());
+        if (existingBehaviorOpt.isPresent()) {
+            // Se já existir, você pode atualizar o comportamento existente (se for o caso)
+            UserBehavior existingBehavior = existingBehaviorOpt.get();
+            existingBehavior.setTotalShopping(save.getTotalPrice());
+            existingBehavior.setItemCart(save.getItems().size());
+            // Atualizar outros campos, se necessário
+            behaviorRepository.save(existingBehavior);
+        } else {
+            // Se não existir, cria um novo comportamento
+            UserBehavior behavior = new UserBehavior(
+                    client,
+                    save.getTotalPrice(),
+                    0,
+                    0,
+                    save.getItems().size(),
+                    save.getPaymentType() != null ? save.getPaymentType().toString() : "DESCONHECIDO",
+                    clientInfo.getAge(),
+                    save.getAdressClient().getState(),
+                    save.getAdressClient().getCountry(),
+                    data.getDevice(),
+                    false
+            );
+            behaviorRepository.save(behavior);
+        }
 
-        behaviorRepository.save(behavior);
         return  orderComponent.orderDto(save);
     }
 

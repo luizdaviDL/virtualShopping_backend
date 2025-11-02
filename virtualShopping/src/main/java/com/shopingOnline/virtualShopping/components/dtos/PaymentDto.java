@@ -3,13 +3,15 @@ package com.shopingOnline.virtualShopping.components.dtos;
 import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 import com.shopingOnline.virtualShopping.enums.PaymentType;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PaymentDto {
     private Long id;
+    private Long order;
     private PaymentType typePayment;
     private PaymentStatus statusPayment;
-    private double value;
+    private BigDecimal value;
     private String deviceFingerprint;
     private String ipAddress;
     private String userAgent;
@@ -21,7 +23,7 @@ public class PaymentDto {
     public PaymentDto() {
     }
 
-    public PaymentDto(Long id, PaymentType typePayment, PaymentStatus statusPayment, double value, String deviceFingerprint, String ipAddress, String userAgent, String location, String transactionId, Date paymentDate, Date createdAt) {
+    public PaymentDto(Long id, PaymentType typePayment, PaymentStatus statusPayment, BigDecimal value, String deviceFingerprint, String ipAddress, String userAgent, String location, String transactionId, Date paymentDate, Date createdAt) {
         this.id = id;
         this.typePayment = typePayment;
         this.statusPayment = statusPayment;
@@ -33,6 +35,7 @@ public class PaymentDto {
         this.transactionId = transactionId;
         this.paymentDate = paymentDate;
         this.createdAt = createdAt;
+
     }
 
     public Long getId() {
@@ -59,11 +62,11 @@ public class PaymentDto {
         this.statusPayment = statusPayment;
     }
 
-    public double getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 
@@ -117,6 +120,14 @@ public class PaymentDto {
 
     public Date getCreatedAt() {
         return createdAt;
+    }
+
+    public Long getOrder() {
+        return order;
+    }
+
+    public void setOrder(Long order) {
+        this.order = order;
     }
 
     public void setCreatedAt(Date createdAt) {

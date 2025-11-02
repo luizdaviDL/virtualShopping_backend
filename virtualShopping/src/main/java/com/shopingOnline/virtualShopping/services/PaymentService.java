@@ -1,5 +1,6 @@
 package com.shopingOnline.virtualShopping.services;
 
+import com.shopingOnline.virtualShopping.components.dtos.OrderDto;
 import com.shopingOnline.virtualShopping.components.dtos.PaymentDto;
 import com.shopingOnline.virtualShopping.components.payment.PaymentComponents;
 import com.shopingOnline.virtualShopping.components.serializer.PaymentSave;
@@ -12,6 +13,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PaymentService {
     @Autowired
@@ -22,6 +25,8 @@ public class PaymentService {
     private PaymentComponents paymentComponents;
     @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private OrderRepository orderRepository;
 
 
     public PaymentDto save(PaymentSave data) {
@@ -32,6 +37,28 @@ public class PaymentService {
 
         validationUtil.validatePaymentAmount(data.getValue(), order.getTotalPrice());
         Payment payment = paymentComponents.createPaymentEntity(data, order);
-        return mapper.map(payment, PaymentDto.class);
+        repository.save(payment);
+        Optional<Order> orderData = orderRepository.findById(payment.getOrder().getId());
+        Order orderUpdate = orderData.orElseThrow(() -> new IllegalArgumentException("Order not found with ID: " + payment.getOrder().getId()));
+
+        orderUpdate.setStatusPayment(payment.getStatusPayment());
+        orderRepository.save(orderUpdate);
+
+        PaymentDto dto = new PaymentDto();
+        dto.setId(payment.getId());
+        dto.setOrder(payment.getOrder().getId());
+        dto.setTypePayment(payment.getTypePayment());
+        dto.setStatusPayment(payment.getStatusPayment());
+        dto.setValue(payment.getValue());
+        dto.setDeviceFingerprint(payment.getDeviceFingerprint());
+        dto.setIpAddress(payment.getIpAddress());
+        dto.setUserAgent(payment.getUserAgent());
+        dto.setLocation(payment.getLocation());
+        dto.setTransactionId(payment.getTransactionId());
+        dto.setPaymentDate(payment.getPaymentDate());
+        dto.setCreatedAt(payment.getCreatedAt());
+
+        dto.setOrder(order.getId());
+        return dto;
     }
 }

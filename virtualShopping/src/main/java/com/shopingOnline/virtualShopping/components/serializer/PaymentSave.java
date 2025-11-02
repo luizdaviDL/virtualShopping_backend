@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class PaymentSave {
     private Long id;
-    private Order order;
+    private Long order;
     private PaymentType typePayment;
     private PaymentStatus statusPayment;
     private BigDecimal value;
@@ -41,6 +41,48 @@ public class PaymentSave {
     public PaymentSave() {
     }
 
+    public PaymentSave(Long order,
+                       PaymentType typePayment,
+                       PaymentStatus statusPayment,
+                       BigDecimal value,
+                       String deviceFingerprint,
+                       String ipAddress,
+                       String userAgent,
+                       String location,
+                       String transactionId,
+                       Date paymentDate,
+                       Date createdAt,
+                       String cardBrand,
+                       String cardLastDigits,
+                       String pixKey,
+                       String pixKeyType,
+                       String pixTransactionId,
+                       String bankOrigin,
+                       String barcode,
+                       Date dueDate,
+                       String bankSlipUrl) {
+        this.order = order;
+        this.typePayment = typePayment;
+        this.statusPayment = statusPayment;
+        this.value = value;
+        this.deviceFingerprint = deviceFingerprint;
+        this.ipAddress = ipAddress;
+        this.userAgent = userAgent;
+        this.location = location;
+        this.transactionId = transactionId;
+        this.paymentDate = paymentDate;
+        this.createdAt = createdAt;
+        this.cardBrand = cardBrand;
+        this.cardLastDigits = cardLastDigits;
+        this.pixKey = pixKey;
+        this.pixKeyType = pixKeyType;
+        this.pixTransactionId = pixTransactionId;
+        this.bankOrigin = bankOrigin;
+        this.barcode = barcode;
+        this.dueDate = dueDate;
+        this.bankSlipUrl = bankSlipUrl;
+    }
+
     public Long getId() {
         return id;
     }
@@ -49,11 +91,11 @@ public class PaymentSave {
         this.id = id;
     }
 
-    public Order getOrder() {
+    public Long getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(Long order) {
         this.order = order;
     }
 

@@ -21,6 +21,7 @@ public class PaymentValidationUtil {
     private OrderRepository orderRepository;
 
     public void validatePaymentData(PaymentSave data) {
+
         if (data.getOrder() == null) {
             throw new IllegalArgumentException("Order is required");
         }
@@ -67,13 +68,10 @@ public class PaymentValidationUtil {
         }
     }
 
-    public Order findAndValidateOrder(Order orderData) {
-        if (orderData.getId() == null) {
-            throw new IllegalArgumentException("Order ID is required");
-        }
+    public Order findAndValidateOrder(Long orderData) {
 
-        Order order = orderRepository.findById(orderData.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Order not found: " + orderData.getId()));
+        Order order = orderRepository.findById(orderData)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found: " + orderData));
 
         // Check if the order is already paid
         if (order.getStatusPayment().equals(PaymentStatus.PAIED)) {
@@ -89,7 +87,7 @@ public class PaymentValidationUtil {
     }
 
     public void checkExistingPayment(Order order) {
-        boolean existingPayment = repository.existsByOrderAndStatusIn(
+        boolean existingPayment = repository.existsByOrderAndStatusPaymentIn(
                 order,
                 Arrays.asList(PaymentStatus.PENDING, PaymentStatus.PROCESSING, PaymentStatus.APPROVED)
         );

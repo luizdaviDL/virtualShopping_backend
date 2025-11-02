@@ -20,11 +20,6 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
             List<PaymentStatus> statusPayment
     );
 
-    // ✅ ALTERNATIVA: Se quiser usar "status" em vez de "statusPayment"
-    boolean existsByOrderAndStatusIn(
-            Order order,
-            List<PaymentStatus> status
-    );
 
     // ✅ BUSCAR PAGAMENTOS POR PEDIDO
     List<Payment> findByOrder(Order order);
@@ -54,8 +49,8 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
     );
 
     // ✅ BUSCAR PAGAMENTOS COM ALTO RISCO DE FRAUDE
-    @Query("SELECT p FROM Payment p WHERE p.fraudRiskScore > :minRiskScore")
-    List<Payment> findHighRiskPayments(@Param("minRiskScore") double minRiskScore);
+   // @Query("SELECT p FROM Payment p WHERE p.fraudRiskScore > :minRiskScore")
+    //List<Payment> findHighRiskPayments(@Param("minRiskScore") double minRiskScore);
 
     // ✅ CONTAR PAGAMENTOS POR STATUS (para dashboard)
     @Query("SELECT p.statusPayment, COUNT(p) FROM Payment p GROUP BY p.statusPayment")

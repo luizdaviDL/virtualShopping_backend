@@ -71,6 +71,6 @@ public class OrderComponent {
             itemDto.add(mapper.map(da, OrderItemDto.class));
         }
         adress = clientComponents.adressDto(data.getAdressClient());
-        return new OrderDto(client, adress,itemDto, data.getStatus());
+        return new OrderDto(client, adress,itemDto, data.getStatus(), data.getTotalPrice());
     }
 }
