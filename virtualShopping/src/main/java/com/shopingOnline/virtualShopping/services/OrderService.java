@@ -12,6 +12,7 @@ import com.shopingOnline.virtualShopping.components.validationsUtil.orderItem.Or
 import com.shopingOnline.virtualShopping.components.validationsUtil.payment.PaymentValidationUtil;
 import com.shopingOnline.virtualShopping.entity.*;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
+import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 import com.shopingOnline.virtualShopping.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,7 @@ public class OrderService {
 
         Client client = clientRepository.findById(data.getUser()).get();
         ClientAdress adress = adressRepository.findById(data.getAdress()).get();
-        Order orderInstance = new Order(client, adress, OrderStatus.DRAFT, OrderStatus.AWAITING_PAYMENT ,data.getTotalPrice());
+        Order orderInstance = new Order(client, adress, OrderStatus.DRAFT, PaymentStatus.AWAITING_PAYMENT ,data.getTotalPrice());
         Order savedOrder = repository.save(orderInstance);
         List<ItemOrder> itemOrdes = itemOrdercomponent.ItemOrderSave_to_ItemOrders(data.getItems(), savedOrder);
         for (ItemOrder item : itemOrdes) {
@@ -85,7 +86,6 @@ public class OrderService {
             throw new RuntimeException("Client information not found: " + data.getUser());
         }
 
-        System.out.println(clientInfo.getAge());
         UserBehavior behavior = new UserBehavior(
                 client,
                 save.getTotalPrice(),

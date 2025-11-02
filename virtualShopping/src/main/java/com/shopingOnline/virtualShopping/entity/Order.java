@@ -2,6 +2,7 @@ package com.shopingOnline.virtualShopping.entity;
 
 import com.shopingOnline.virtualShopping.components.serializer.ItemOrderSave;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
+import com.shopingOnline.virtualShopping.enums.PaymentStatus;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -34,7 +35,7 @@ public class Order {
     @OneToOne
     @JoinColumn(name = "payment_id")
     private Payment paymentType;
-    private OrderStatus statusPayment;
+    private PaymentStatus statusPayment;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     private BigDecimal totalPrice;
@@ -42,7 +43,7 @@ public class Order {
     public Order() {}
 
     public Order(
-                 Client client, ClientAdress adressClient, OrderStatus status, OrderStatus statusPayment, BigDecimal totalPrice) {
+                 Client client, ClientAdress adressClient, OrderStatus status, PaymentStatus statusPayment, BigDecimal totalPrice) {
         this.date = LocalDate.now();
         this.hours = LocalTime.now();
         this.client = client;
@@ -118,11 +119,11 @@ public class Order {
         this.status = status;
     }
 
-    public OrderStatus getStatusPayment() {
+    public PaymentStatus getStatusPayment() {
         return statusPayment;
     }
 
-    public void setStatusPayment(OrderStatus statusPayment) {
+    public void setStatusPayment(PaymentStatus statusPayment) {
         this.statusPayment = statusPayment;
     }
 

@@ -7,5 +7,5 @@ public enum OrderStatus {
     PROCESSING,             // Processando: O pedido está sendo preparado ou embalado
     SHIPPED,                // Enviado: O pedido foi enviado
     DELIVERED,              // Entregue: O pedido foi entregue com sucesso
-    CANCELLED
+    CANCELLED,
 }
