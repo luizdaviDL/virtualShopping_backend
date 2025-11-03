@@ -5,10 +5,14 @@ import com.shopingOnline.virtualShopping.components.dtos.PaymentDto;
 import com.shopingOnline.virtualShopping.components.payment.PaymentComponents;
 import com.shopingOnline.virtualShopping.components.serializer.PaymentSave;
 import com.shopingOnline.virtualShopping.components.validationsUtil.payment.PaymentValidationUtil;
+import com.shopingOnline.virtualShopping.entity.ClientInformation;
 import com.shopingOnline.virtualShopping.entity.Order;
 import com.shopingOnline.virtualShopping.entity.Payment;
+import com.shopingOnline.virtualShopping.entity.UserBehavior;
+import com.shopingOnline.virtualShopping.repository.ClientInformationRepository;
 import com.shopingOnline.virtualShopping.repository.OrderRepository;
 import com.shopingOnline.virtualShopping.repository.PaymentRepository;
+import com.shopingOnline.virtualShopping.repository.UserBehaviorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +31,10 @@ public class PaymentService {
     private ModelMapper mapper;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private UserBehaviorRepository userBehaviorRepository;
+    @Autowired
+    private ClientInformationRepository clientInformationRepository;
 
 
     public PaymentDto save(PaymentSave data) {
@@ -57,8 +65,16 @@ public class PaymentService {
         dto.setTransactionId(payment.getTransactionId());
         dto.setPaymentDate(payment.getPaymentDate());
         dto.setCreatedAt(payment.getCreatedAt());
-
         dto.setOrder(order.getId());
+
+        Optional<UserBehavior> behavier = userBehaviorRepository.findByClientId(payment.clientId());
+        if(behavier.isPresent()){
+            if(payment.getOrder().getClient().getId()== behavier.get().getClient().getId() && payment.getValue() == behavier.get().getTotalShopping()){
+                behavier.get().setPaymentTye(payment.getTypePayment());
+                userBehaviorRepository.save(behavier);
+            }
+        }
+
         return dto;
     }
 }

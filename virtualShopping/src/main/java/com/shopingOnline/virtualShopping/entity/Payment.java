@@ -76,6 +76,11 @@ public class Payment {
         this.ipAddress = ipAddress;
     }
 
+    @Transient // Não persiste no banco!
+    public Long clientId() {
+        return this.order != null ? this.order.getClient().getId() : null;
+    }
+
 
     // ✅ MÉTODOS ESPECÍFICOS POR TIPO
     public boolean isPIX() {

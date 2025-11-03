@@ -1,6 +1,7 @@
 package com.shopingOnline.virtualShopping.entity;
 
 import com.shopingOnline.virtualShopping.enums.PaymentStatus;
+import com.shopingOnline.virtualShopping.enums.PaymentType;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
@@ -27,8 +28,9 @@ public class UserBehavior {
     @Column(name = "item_cart")
     private Integer itemCart;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "payment_type")
-    private String paymentType;
+    private PaymentType paymentType;
 
     @Column(name = "client_age")
     private Integer clientAge;
@@ -52,7 +54,7 @@ public class UserBehavior {
     }
 
 
-    public UserBehavior(Client client,BigDecimal totalPrice, int sectionTime,int intervalTime , int size, String paymentType, Integer age, String state, String country,String device ,boolean fraude) {
+    public UserBehavior(Client client,BigDecimal totalPrice, int sectionTime,int intervalTime , int size, PaymentType paymentType, Integer age, String state, String country,String device ,boolean fraude) {
         this.client = client;
         this.totalShopping = totalPrice;
         this.sectionTime = sectionTime;
@@ -101,11 +103,11 @@ public class UserBehavior {
         this.itemCart = itemCart;
     }
 
-    public String getPaymentTye() {
+    public PaymentType getPaymentTye() {
         return paymentType;
     }
 
-    public void setPaymentTye(String paymentTye) {
+    public void setPaymentTye(PaymentType paymentTye) {
         this.paymentType = paymentTye;
     }
 
@@ -157,11 +159,19 @@ public class UserBehavior {
         this.intervalTime = intervalTime;
     }
 
-    public String getPaymentType() {
+    public PaymentType getPaymentType() {
         return paymentType;
     }
 
-    public void setPaymentType(String paymentType) {
+    public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
