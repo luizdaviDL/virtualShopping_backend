@@ -13,6 +13,7 @@ import com.shopingOnline.virtualShopping.components.validationsUtil.payment.Paym
 import com.shopingOnline.virtualShopping.entity.*;
 import com.shopingOnline.virtualShopping.enums.OrderStatus;
 import com.shopingOnline.virtualShopping.enums.PaymentStatus;
+import com.shopingOnline.virtualShopping.enums.PaymentType;
 import com.shopingOnline.virtualShopping.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,14 +96,13 @@ public class OrderService {
             // Atualizar outros campos, se necessário
             behaviorRepository.save(existingBehavior);
         } else {
-            // Se não existir, cria um novo comportamento
             UserBehavior behavior = new UserBehavior(
                     client,
                     save.getTotalPrice(),
                     0,
                     0,
                     save.getItems().size(),
-                    save.getPaymentType() != null ? save.getPaymentType().toString() : "DESCONHECIDO",
+                    save.getPaymentType() != null ? save.getPaymentType().getTypePayment() : PaymentType.unknown,
                     clientInfo.getAge(),
                     save.getAdressClient().getState(),
                     save.getAdressClient().getCountry(),

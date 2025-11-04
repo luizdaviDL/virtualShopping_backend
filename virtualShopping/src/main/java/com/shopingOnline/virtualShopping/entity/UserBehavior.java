@@ -69,6 +69,7 @@ public class UserBehavior {
     }
 
 
+
     // ===== GETTERS e SETTERS =====
 
     public Long getId() {
